@@ -1,15 +1,15 @@
 # PokéDex Explorer
 
-A comprehensive Pokémon browser application built with Angular that allows users to explore the world of Pokémon using the PokéAPI.
+A Pokémon browser application built with Angular that allows users to explore the world of Pokémon using the PokéAPI.
 
 ## Project Overview
 
-This Angular application serves as a training project for interns to learn and apply core Angular concepts. The PokéDex Explorer allows users to:
+This Angular application serves as a training project for interns to learn and apply core Angular concepts. The PokéDex Explorer will allow users to:
 
 - Browse a list of Pokémon
 - View detailed information about each Pokémon
-- Navigate between different pages using Angular routing
-- Experience protected routes and authentication flows
+- Navigate between different pages
+- Experience protected routes
 - Interact with dynamically displayed data
 
 ## Technologies Used
@@ -22,11 +22,7 @@ This Angular application serves as a training project for interns to learn and a
 
 ## Project Structure
 
-The application follows a modular architecture with the following key components:
-
-- **Core Module**: Contains singleton services and application-wide providers
-- **Shared Module**: Houses reusable components, directives, and pipes
-- **Feature Modules**: Separate modules for different features (Pokémon list, details, etc.)
+This section will be filled in as you develop the application. Consider how you might organize your code using Angular best practices.
 
 ## Development Milestones
 
@@ -47,23 +43,26 @@ The project is divided into 10 progressive milestones:
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js
 - npm or yarn package manager
 
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    cd aksel-poke-dex-explorer
    ```
 
 2. Install dependencies:
+
    ```bash
    yarn install
    ```
 
 3. Start the development server:
+
    ```bash
    yarn start
    ```
@@ -72,15 +71,15 @@ The project is divided into 10 progressive milestones:
 
 ## Development Environment
 
-The project supports multiple environments:
+You'll need to set up appropriate environments for your application:
 
-- **Development**: Used during local development
-- **Testing**: Used for running tests
-- **Production**: Used for production builds
+- Development
+- Testing
+- Production
 
 ## Best Practices
 
-This project follows these coding principles:
+As you develop this project, consider following these coding principles:
 
 - Clean, organized code structure
 - Component-based architecture
