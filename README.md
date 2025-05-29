@@ -90,7 +90,7 @@ As you develop this project, consider following these coding principles:
 
 ## Learning Resources
 
-- [Angular Documentation](https://angular.io/docs)
+- [Angular Documentation](https://angular.dev/overview)
 - [PokéAPI Documentation](https://pokeapi.co/docs/v2)
 
 ## License
