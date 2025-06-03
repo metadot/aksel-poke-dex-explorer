@@ -1,9 +1,20 @@
-<div>
-  <h1>WELCOME TO AKSEL'S POKEDEX</h1>
+<div class="container">
+  <div class="title">WELCOME TO AKSEL'S POKEDEX</div>
+  <div class="pokeball-wrapper">
+    <img class="pokeball" src="Poké_Ball_icon.svg" alt="Pokeball" />
 
-  <p>
+    <a routerLink="display">
+      <img
+        class="play-button"
+        src="media-play.svg"
+        alt="play-icon"
+        style="width: 12%"
+      />
+    </a>
+  </div>
+
+  <p class="info">
     This Angular application serves as a training project for me to learn and
     apply core Angular concepts.
   </p>
-  <button routerLink="display">Click here to start!</button>
 </div>

@@ -1,0 +1,40 @@
+.container {
+  text-align: center;
+  color: black;
+}
+
+.pokeball-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 55%;
+}
+
+.pokeball {
+  width: 100%;
+  display: block;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+}
+
+.title {
+  position: absolute;
+  top: 4%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000000;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 45px;
+}
+
+.info {
+  position: relative;
+  bottom: 50px;
+  font-family: Arial;
+  font-size: 35px;
+}
