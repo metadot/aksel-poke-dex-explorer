@@ -1,0 +1,30 @@
+body {
+  background-image: url("../../../public/pokemon-background.jpg");
+  background-position: center;
+  background-size: cover;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  color: black;
+}
+
+.pokeball-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+}
+
+.pokeball {
+  width: 100%;
+  display: block;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
