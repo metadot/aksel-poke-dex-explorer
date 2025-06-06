@@ -1,0 +1,30 @@
+<app-header></app-header>
+
+<mat-paginator
+  #paginatorTop
+  [length]="1025"
+  [pageSize]="12"
+  [showFirstLastButtons]="true"
+  [pageSizeOptions]="[12, 24, 48, 72]"
+  [pageIndex]="currentPage"
+  (page)="handlePageEvent($event)"
+></mat-paginator>
+
+<div class="pokemon-list">
+  <div class="box" *ngFor="let pokemon of pokemons">
+    <h1>#{{ pokemon.id }}</h1>
+    <img
+      [src]="pokemon.sprites.other['official-artwork'].front_default"
+      alt="pokemon"
+    />
+
+    <h1>{{ pokemon.species_name | titlecase }}</h1>
+    <div class="type">
+      <img
+        *ngFor="let type of pokemon.types"
+        [src]="getTypeSprite(type.type.name)"
+        alt="type.type.name"
+      />
+    </div>
+  </div>
+</div>
