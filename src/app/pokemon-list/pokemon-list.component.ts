@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-list',
-  imports: [HeaderComponent, CommonModule, MatPaginatorModule],
+  imports: [CommonModule, MatPaginatorModule, RouterModule],
   templateUrl: './pokemon-list.component.html',
   styleUrl: './pokemon-list.component.css',
 })
@@ -44,8 +44,6 @@ export class PokemonListComponent implements OnInit {
       this.getPokemonSpecies(limit, offset)
     );
 
-    console.log(speciesResponse);
-
     const pokemonPromises = speciesResponse.results.map(
       async (species: any) => {
         const speciesData: any = await firstValueFrom(
@@ -54,7 +52,6 @@ export class PokemonListComponent implements OnInit {
         const detailedPokemon = await firstValueFrom(
           this.http.get(speciesData.varieties[0].pokemon.url)
         );
-        console.log(species.name);
         return {
           species_name: species.name,
           ...detailedPokemon,
@@ -63,7 +60,6 @@ export class PokemonListComponent implements OnInit {
     );
     this.types = await Promise.all(typePromises);
     this.pokemons = await Promise.all(pokemonPromises);
-    console.log(this.pokemons);
   }
 
   getPokemonData(url: string) {
@@ -86,7 +82,6 @@ export class PokemonListComponent implements OnInit {
     this.limit = pageEvent.pageSize;
     this.currentPage = pageEvent.pageIndex;
     this.offset = pageEvent.pageIndex * pageEvent.pageSize;
-    console.log(this.limit, this.currentPage, this.offset);
     await this.getPokemonInfo(this.limit, this.offset);
     window.scrollTo(0, 0);
   }
