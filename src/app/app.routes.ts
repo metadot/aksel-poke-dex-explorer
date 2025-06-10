@@ -4,5 +4,5 @@ import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'list', component: PokemonListComponent },
+  { path: 'pokemons', component: PokemonListComponent },
 ];
