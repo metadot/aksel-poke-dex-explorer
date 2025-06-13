@@ -1,14 +1,5 @@
 import { HttpClient, httpResource } from '@angular/common/http';
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  input,
-  Input,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { first, firstValueFrom } from 'rxjs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
