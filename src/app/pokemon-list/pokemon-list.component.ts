@@ -24,21 +24,13 @@ export class PokemonListComponent {
   pokemons: any[] = [];
   types: any[] = [];
 
-  readonly limit = input<number>();
-  readonly page = input<number>();
+  readonly page = input.required<number>();
+  readonly limit = input.required<number>();
 
-  currentPage = signal(0);
-  pageSize = signal(12);
-  offset = computed(() => this.currentPage() * this.pageSize());
-
-  constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
+  constructor(private http: HttpClient, private router: Router) {
     effect(() => {
-      this.currentPage.set(this.page() ?? 0);
-      this.pageSize.set(this.limit() ?? 12);
+      console.log(`This is the page ${this.page()}`);
+      console.log(`This is the number of items per page ${this.limit()}`);
       this.getPokemonInfo();
     });
   }
@@ -51,19 +43,22 @@ export class PokemonListComponent {
     return this.http.get(`${url}`);
   }
 
-  getPokemonSpecies() {
+  getPokemonSpecies(offset: number) {
     return this.http.get(
-      `https://pokeapi.co/api/v2/pokemon-species?limit=${this.limit()}&offset=${this.offset()}`
+      `https://pokeapi.co/api/v2/pokemon-species?limit=${this.limit()}&offset=${offset}`
     );
   }
 
   async getPokemonInfo() {
+    const offset = this.limit() * this.page();
     const typeResponse: any = await firstValueFrom(this.getTypes());
     const typePromises = typeResponse.results.map((result: any) =>
       firstValueFrom(this.getTypeData(result.url))
     );
 
-    const speciesResponse: any = await firstValueFrom(this.getPokemonSpecies());
+    const speciesResponse: any = await firstValueFrom(
+      this.getPokemonSpecies(offset)
+    );
 
     const pokemonPromises = speciesResponse.results.map(
       async (species: any) => {

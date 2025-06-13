@@ -4,12 +4,12 @@
   [pageSize]="limit()"
   [showFirstLastButtons]="true"
   [pageSizeOptions]="[12, 24, 48, 72]"
-  [pageIndex]="currentPage()"
+  [pageIndex]="page()"
   (page)="handlePageEvent($event)"
 ></mat-paginator>
 
 <div class="pokemon-list">
-  @for (pokemon of pokemons; track pokemon) {
+  @for (pokemon of pokemons; track pokemon.id) {
   <div class="box">
     <h1>#{{ pokemon.id }}</h1>
     <img
