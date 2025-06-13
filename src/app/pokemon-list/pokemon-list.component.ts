@@ -1,7 +1,16 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { HttpClient, httpResource } from '@angular/common/http';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  Input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { firstValueFrom } from 'rxjs';
+import { first, firstValueFrom } from 'rxjs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
@@ -11,18 +20,28 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
   templateUrl: './pokemon-list.component.html',
   styleUrl: './pokemon-list.component.css',
 })
-export class PokemonListComponent implements OnInit {
+export class PokemonListComponent {
   pokemons: any[] = [];
   types: any[] = [];
-  currentPage = 0;
-  limit = 0;
-  offset = 0;
+
+  readonly limit = input<number>();
+  readonly page = input<number>();
+
+  currentPage = signal(0);
+  pageSize = signal(12);
+  offset = computed(() => this.currentPage() * this.pageSize());
 
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    effect(() => {
+      this.currentPage.set(this.page() ?? 0);
+      this.pageSize.set(this.limit() ?? 12);
+      this.getPokemonInfo();
+    });
+  }
 
   getTypes() {
     return this.http.get(`https://pokeapi.co/api/v2/type`);
@@ -32,21 +51,19 @@ export class PokemonListComponent implements OnInit {
     return this.http.get(`${url}`);
   }
 
-  getPokemonSpecies(limit: number, offset: number) {
+  getPokemonSpecies() {
     return this.http.get(
-      `https://pokeapi.co/api/v2/pokemon-species?limit=${limit}&offset=${offset}`
+      `https://pokeapi.co/api/v2/pokemon-species?limit=${this.limit()}&offset=${this.offset()}`
     );
   }
 
-  async getPokemonInfo(limit: number = 12, offset: number = 0) {
+  async getPokemonInfo() {
     const typeResponse: any = await firstValueFrom(this.getTypes());
     const typePromises = typeResponse.results.map((result: any) =>
       firstValueFrom(this.getTypeData(result.url))
     );
 
-    const speciesResponse: any = await firstValueFrom(
-      this.getPokemonSpecies(limit, offset)
-    );
+    const speciesResponse: any = await firstValueFrom(this.getPokemonSpecies());
 
     const pokemonPromises = speciesResponse.results.map(
       async (species: any) => {
@@ -83,28 +100,13 @@ export class PokemonListComponent implements OnInit {
   }
 
   async handlePageEvent(pageEvent: PageEvent) {
-    this.limit = pageEvent.pageSize;
-    this.currentPage = pageEvent.pageIndex;
-    this.offset = pageEvent.pageIndex * pageEvent.pageSize;
-
     this.router.navigate([], {
-      relativeTo: this.route,
       queryParams: {
-        limit: this.limit,
-        page: this.currentPage,
+        limit: pageEvent.pageSize,
+        page: pageEvent.pageIndex,
       },
-    });
-
-    await this.getPokemonInfo(this.limit, this.offset);
-    window.scrollTo(0, 0);
-  }
-
-  async ngOnInit(): Promise<void> {
-    this.route.queryParams.subscribe(async (params) => {
-      this.limit = +params['limit'] || 12;
-      this.currentPage = +params['page'] || 0;
-      this.offset = this.currentPage * this.limit;
-      await this.getPokemonInfo(this.limit, this.offset);
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
     });
   }
 }

@@ -1,15 +1,16 @@
 <mat-paginator
   #paginatorTop
   [length]="1025"
-  [pageSize]="12"
+  [pageSize]="limit()"
   [showFirstLastButtons]="true"
   [pageSizeOptions]="[12, 24, 48, 72]"
-  [pageIndex]="currentPage"
+  [pageIndex]="currentPage()"
   (page)="handlePageEvent($event)"
 ></mat-paginator>
 
 <div class="pokemon-list">
-  <div class="box" *ngFor="let pokemon of pokemons">
+  @for (pokemon of pokemons; track pokemon) {
+  <div class="box">
     <h1>#{{ pokemon.id }}</h1>
     <img
       [src]="pokemon.sprites.other['official-artwork'].front_default"
@@ -25,4 +26,5 @@
       />
     </div>
   </div>
+  }
 </div>
