@@ -9,11 +9,6 @@
   gap: 20px;
 }
 
-.active {
-  color: white;
-  text-decoration: none;
-}
-
 .search {
   display: flex;
   padding: 14px;
@@ -31,4 +26,14 @@
   border: none;
   background: transparent;
   flex: 1;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.active-link {
+  color: yellow;
+  text-decoration: none;
 }
