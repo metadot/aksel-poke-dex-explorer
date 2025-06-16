@@ -3,7 +3,7 @@
     <div class="pokeball-wrapper">
       <img class="pokeball" src="pokeball.png" alt="Pokeball" />
 
-      <a routerLink="/pokemons">
+      <a routerLink="/pokemons" [queryParams]="{ limit: 12, page: 0 }">
         <img
           class="play-button"
           src="media-play.svg"

@@ -5,7 +5,12 @@
     [routerLinkActiveOptions]="{ exact: true }"
     >Home</a
   >
-  <a routerLink="/pokemons" routerLinkActive="active-link">List</a>
+  <a
+    routerLink="/pokemons"
+    [queryParams]="{ limit: 12, page: 0 }"
+    routerLinkActive="active-link"
+    >List</a
+  >
   <div class="search">
     <input
       class="search-input"
