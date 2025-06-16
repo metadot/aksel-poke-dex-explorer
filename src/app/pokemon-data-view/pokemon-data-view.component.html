@@ -1,0 +1,85 @@
+<div class="pokemon-box">
+  <div class="nav-sprites">
+    <div class="nav-slot">
+      @if (previousPokemon?.value()) {
+      <a [routerLink]="['/pokemon', previousPokemon.value()?.name]">
+        <img
+          class="sprite"
+          [src]="previousPokemon.value()?.sprites.front_default"
+          alt="Previous Pokémon"
+        />
+      </a>
+      }
+    </div>
+
+    <div class="nav-slot">
+      <a [routerLink]="['/pokemon', currentPokemon.value()?.name]">
+        <img
+          class="sprite"
+          [src]="currentPokemon.value()?.sprites.front_default"
+          alt="Current Pokémon"
+        />
+      </a>
+    </div>
+
+    <div class="nav-slot">
+      @if (nextPokemon?.value()) {
+      <a [routerLink]="['/pokemon', nextPokemon.value()?.name]">
+        <img
+          class="sprite"
+          [src]="nextPokemon.value()?.sprites.front_default"
+          alt="Next Pokémon"
+        />
+      </a>
+      }
+    </div>
+  </div>
+
+  <h1>#{{ currentPokemon.value()?.id }}</h1>
+  <h2>{{ currentPokemon.value()?.name | titlecase }}</h2>
+
+  <img
+    class="official"
+    [src]="
+      currentPokemon.value()?.sprites.other['official-artwork'].front_default
+    "
+    alt="Official Artwork"
+  />
+
+  <div class="types">
+    @for (type of currentPokemon.value()?.types; track type.type.name) {
+    <span class="type">{{ type.type.name }}</span>
+    }
+  </div>
+
+  @if (latestFlavorText()){
+  <div class="description">
+    <div>
+      {{ latestFlavorText().flavor_text }}
+    </div>
+  </div>
+  }
+
+  <div class="abilities-section">
+    <h3 class="section-heading">Abilities</h3>
+    <ul class="abilities">
+      @for (ability of currentPokemon.value()?.abilities; track
+      ability.ability.name) {
+      <li>{{ ability.ability.name }}</li>
+      }
+    </ul>
+  </div>
+
+  <div class="stats">
+    <div>Height: {{ convertHeight(currentPokemon.value()?.height) }}</div>
+    <div>Weight: {{ convertWeight(currentPokemon.value()?.weight) }}</div>
+  </div>
+
+  <div class="audio-wrapper">
+    @if (latestCry()) {
+    <audio controls [src]="latestCry()" class="audio-small"></audio>
+    } @if (legacyCry()) {
+    <audio controls [src]="legacyCry()" class="audio-small"></audio>
+    }
+  </div>
+</div>

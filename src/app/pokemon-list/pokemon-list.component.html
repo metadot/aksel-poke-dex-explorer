@@ -10,8 +10,10 @@
 
 <div class="pokemon-list">
   @for (pokemon of pokemons.value()?.results ?? []; track pokemon.name) {
-  <div class="box">
-    <h1>{{ pokemon.name | titlecase }}</h1>
-  </div>
+  <a [routerLink]="['/pokemon', pokemon.name]"
+    ><div class="box">
+      <h1>{{ pokemon.name | titlecase }}</h1>
+    </div></a
+  >
   }
 </div>
