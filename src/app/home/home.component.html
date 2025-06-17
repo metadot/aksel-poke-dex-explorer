@@ -1,14 +1,29 @@
-<body>
-  <div class="container">
-    <div class="pokeball-wrapper">
-      <img class="pokeball" src="pokeball.png" alt="Pokeball" />
+<body
+  class="bg-cover bg-center m-0"
+  style="
+    background-image: url('pokemon-background.jpg');
+    background-size: cover;
+  "
+>
+  <div class="container text-center text-black">
+    <div class="position-relative d-inline-block w-50">
+      <img class="img-fluid w-100" src="pokeball.png" alt="Pokeball" />
 
-      <a routerLink="/pokemons" [queryParams]="{ limit: 12, page: 0 }">
+      <a
+        routerLink="/pokemons"
+        [queryParams]="{ limit: limitParam, page: pageParam }"
+      >
         <img
-          class="play-button"
           src="media-play.svg"
           alt="play-icon"
-          style="width: 12%"
+          class="position-absolute"
+          style="
+            top: 50%;
+            left: 51%;
+            transform: translate(-50%, -50%);
+            width: 12%;
+            z-index: 2;
+          "
         />
       </a>
     </div>
