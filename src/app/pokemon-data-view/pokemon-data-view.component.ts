@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { Component, computed, effect, input } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -51,6 +51,8 @@ export class PokemonDataViewComponent {
 
     return englishEntries[englishEntries.length - 1] ?? null;
   });
+
+  readonly error = signal(false);
 
   convertHeight(height: number) {
     const inchesTotal = height * 3.93701;

@@ -1,3 +1,13 @@
+@if (currentPokemon.isLoading()) {
+<p>Loading Pokémon data...</p>
+} @else{@if (currentPokemon.error()) {
+<div class="not-found-container">
+  <img src="psyduck.jpg" />
+  <h2>Pokemon "{{ name() }}" Not Found</h2>
+  <p>Sorry, we could not find that Pokémon.</p>
+  <p>Please, try again!</p>
+</div>
+} @else {
 <div class="pokemon-box">
   <div class="nav-sprites">
     <div class="nav-slot">
@@ -6,7 +16,6 @@
         <img
           class="sprite"
           [src]="previousPokemon.value()?.sprites.front_default"
-          alt="Previous Pokémon"
         />
       </a>
       }
@@ -17,7 +26,6 @@
         <img
           class="sprite"
           [src]="currentPokemon.value()?.sprites.front_default"
-          alt="Current Pokémon"
         />
       </a>
     </div>
@@ -28,7 +36,6 @@
         <img
           class="sprite"
           [src]="nextPokemon.value()?.sprites.front_default"
-          alt="Next Pokémon"
         />
       </a>
       }
@@ -43,7 +50,6 @@
     [src]="
       currentPokemon.value()?.sprites.other['official-artwork'].front_default
     "
-    alt="Official Artwork"
   />
 
   <div class="types">
@@ -83,3 +89,4 @@
     }
   </div>
 </div>
+}}

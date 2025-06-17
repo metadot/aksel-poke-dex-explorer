@@ -1,10 +1,23 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  searchTerm = '';
+
+  constructor(private router: Router) {}
+
+  onSearch() {
+    const trimmed = this.searchTerm.trim().toLowerCase();
+    if (trimmed) {
+      this.router.navigate(['/pokemon', trimmed]);
+    }
+  }
+}
