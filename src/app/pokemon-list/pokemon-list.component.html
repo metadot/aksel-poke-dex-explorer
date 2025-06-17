@@ -1,19 +1,25 @@
 <mat-paginator
   #paginatorTop
-  [length]="1025"
+  [length]="pokemonNumber"
   [pageSize]="limit()"
   [showFirstLastButtons]="true"
-  [pageSizeOptions]="[12, 24, 48, 72]"
+  [pageSizeOptions]="pageSizeOptions"
   [pageIndex]="page()"
-  (page)="handlePageEvent($event)"
+  (page)="onPageChanged($event)"
 ></mat-paginator>
 
-<div class="pokemon-list">
-  @for (pokemon of pokemons.value()?.results ?? []; track pokemon.name) {
-  <a [routerLink]="['/pokemon', pokemon.name]"
-    ><div class="box">
-      <h1>{{ pokemon.name | titlecase }}</h1>
-    </div></a
-  >
-  }
+<div class="container py-4">
+  <div class="row g-3">
+    @for (pokemon of pokemons.value()?.results ?? []; track pokemon.name) {
+    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body p-2 d-flex align-items-center">
+          <h5 class="card-title text-center w-100 text-truncate m-0">
+            {{ pokemon.name | titlecase }}
+          </h5>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
 </div>

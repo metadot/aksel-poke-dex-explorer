@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { limitParam, pageParam } from '../_core/constants/pagination.constants';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -20,4 +20,6 @@ export class HeaderComponent {
       this.router.navigate(['/pokemon', trimmed]);
     }
   }
+  limitParam = limitParam;
+  pageParam = pageParam;
 }
