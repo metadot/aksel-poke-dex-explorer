@@ -1,0 +1,10 @@
+<app-pokemon-card
+  [pokemon]="currentPokemon"
+  [previousPokemon]="previousPokemon"
+  [nextPokemon]="nextPokemon"
+  [flavorText]="latestFlavorText()?.flavor_text"
+  [latestCry]="latestCry()"
+  [legacyCry]="legacyCry()"
+  [weight]="convertWeight(currentPokemon.value()?.weight)"
+  [height]="convertHeight(currentPokemon.value()?.height)"
+/>

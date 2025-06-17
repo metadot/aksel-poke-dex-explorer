@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, effect, input, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
 
 @Component({
   selector: 'app-pokemon-data-view',
-  imports: [CommonModule, RouterModule],
-  templateUrl: './pokemon-data-view.component.html',
-  styleUrl: './pokemon-data-view.component.css',
+  imports: [CommonModule, RouterModule, PokemonCardComponent],
+  templateUrl: './pokemon-detailed-view.component.html',
+  styleUrl: './pokemon-detailed-view.component.css',
 })
-export class PokemonDataViewComponent {
+export class PokemonDetailedViewComponent {
   readonly name = input.required<string>();
   readonly currentPokemon: any = httpResource(
     () => `https://pokeapi.co/api/v2/pokemon/${this.name()}`
@@ -58,10 +59,10 @@ export class PokemonDataViewComponent {
     const inchesTotal = height * 3.93701;
     const feet = Math.floor(inchesTotal / 12);
     const inches = parseFloat((inchesTotal % 12).toFixed(0));
-    return `Height: ${feet}' ${inches}"`;
+    return `${feet}' ${inches}"`;
   }
 
   convertWeight(weight: number) {
-    return `Weight: ${parseFloat((weight * 0.220462).toFixed(1))} lbs`;
+    return `${parseFloat((weight * 0.220462).toFixed(1))} lbs`;
   }
 }

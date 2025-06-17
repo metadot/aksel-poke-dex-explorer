@@ -2,16 +2,16 @@
   class="container text-center text-dark"
   style="font-family: Arial, sans-serif"
 >
-  @if (currentPokemon.isLoading()) {
+  @if (pokemon().isLoading()) {
   <p class="py-5">Loading Pokémon data...</p>
-  } @else { @if (currentPokemon.error()) {
+  } @else if (pokemon().error()) {
   <div class="alert alert-warning mx-auto my-5" style="max-width: 350px">
     <img
       src="psyduck.jpg"
       class="rounded-circle mb-3 mx-auto d-block"
       style="max-width: 120px"
     />
-    <h2>Pokemon "{{ name() }}" Not Found</h2>
+    <h2>Pokemon Not Found</h2>
     <p>Sorry, we could not find that Pokémon.</p>
     <p>Please, try again!</p>
   </div>
@@ -20,12 +20,11 @@
   <div>
     <div class="d-flex justify-content-center gap-3 mb-4">
       <div class="nav-slot">
-        @if (previousPokemon?.value()) {
-        <a [routerLink]="['/pokemon', previousPokemon.value()?.name]">
+        @if (previousPokemon().value()) {
+        <a [routerLink]="['/pokemon', previousPokemon()?.value()?.name]">
           <img
             class="img-fluid"
-            [src]="previousPokemon.value()?.sprites.front_default"
-            alt="Previous Pokemon"
+            [src]="previousPokemon()?.value()?.sprites.front_default"
             style="width: 50px; height: 50px; object-fit: contain"
           />
         </a>
@@ -33,23 +32,21 @@
       </div>
 
       <div class="nav-slot">
-        <a [routerLink]="['/pokemon', currentPokemon.value()?.name]">
+        <a [routerLink]="['/pokemon', pokemon()?.value()?.name]">
           <img
             class="img-fluid"
-            [src]="currentPokemon.value()?.sprites.front_default"
-            alt="Current Pokemon"
+            [src]="pokemon()?.value()?.sprites.front_default"
             style="width: 50px; height: 50px; object-fit: contain"
           />
         </a>
       </div>
 
       <div class="nav-slot">
-        @if (nextPokemon?.value()) {
-        <a [routerLink]="['/pokemon', nextPokemon.value()?.name]">
+        @if (nextPokemon().value()) {
+        <a [routerLink]="['/pokemon', nextPokemon()?.value()?.name]">
           <img
             class="img-fluid"
-            [src]="nextPokemon.value()?.sprites.front_default"
-            alt="Next Pokemon"
+            [src]="nextPokemon()?.value()?.sprites.front_default"
             style="width: 50px; height: 50px; object-fit: contain"
           />
         </a>
@@ -57,31 +54,30 @@
       </div>
     </div>
 
-    <h1 class="mb-1 fs-4">#{{ currentPokemon.value()?.id }}</h1>
+    <h1 class="mb-1 fs-4">#{{ pokemon()?.value()?.id }}</h1>
     <h2 class="fw-normal mb-4 fs-5">
-      {{ currentPokemon.value()?.name | titlecase }}
+      {{ pokemon()?.value()?.name | titlecase }}
     </h2>
 
     <img
       class="img-fluid mx-auto d-block mb-4"
       [src]="
-        currentPokemon.value()?.sprites.other['official-artwork'].front_default
+        pokemon()?.value()?.sprites.other['official-artwork'].front_default
       "
-      alt="{{ currentPokemon.value()?.name }} official artwork"
       style="max-width: 280px"
     />
 
     <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
-      @for (type of currentPokemon.value()?.types; track type.type.name) {
+      @for (type of pokemon()?.value()?.types; track type.type.name) {
       <span class="badge bg-secondary text-capitalize px-3 py-1">{{
         type.type.name
       }}</span>
       }
     </div>
 
-    @if (latestFlavorText()) {
+    @if (flavorText()) {
     <div class="fst-italic text-muted mb-4" style="font-size: 14px">
-      {{ latestFlavorText().flavor_text }}
+      {{ flavorText() }}
     </div>
     }
 
@@ -91,7 +87,7 @@
           Abilities
         </div>
         <ul class="list-group list-group-flush">
-          @for (ability of currentPokemon.value()?.abilities; track
+          @for (ability of pokemon()?.value()?.abilities; track
           ability.ability.name) {
           <li class="list-group-item text-capitalize">
             {{ ability.ability.name }}
@@ -105,8 +101,8 @@
       class="d-flex justify-content-center gap-4 text-muted mb-4"
       style="font-size: 14px"
     >
-      <div>Height: {{ convertHeight(currentPokemon.value()?.height) }}</div>
-      <div>Weight: {{ convertWeight(currentPokemon.value()?.weight) }}</div>
+      <div>Height: {{ height() }}</div>
+      <div>Weight: {{ weight() }}</div>
     </div>
 
     <div class="d-flex justify-content-center gap-3 mt-3">
@@ -126,5 +122,5 @@
     </div>
   </div>
 
-  } }
+  }
 </div>
