@@ -1,10 +1,35 @@
-<div class="header">
-  <a class="active" routerLink="/">Home</a>
-  <div class="search">
+<nav
+  class="navbar navbar-expand-sm bg-danger navbar-light d-flex align-items-center justify-content-start gap-3 px-5 py-4"
+>
+  <a
+    routerLink="/"
+    routerLinkActive="text-warning"
+    [routerLinkActiveOptions]="{ exact: true }"
+    [ngClass]="{ 'text-white': !homeRla.isActive }"
+    #homeRla="routerLinkActive"
+    class="text-decoration-none"
+    >Home</a
+  >
+  <a
+    routerLink="/pokemons"
+    [queryParams]="{ limit: limitParam, page: pageParam }"
+    routerLinkActive="text-warning"
+    [routerLinkActiveOptions]="{ exact: false }"
+    [ngClass]="{ 'text-white': !listRla.isActive }"
+    #listRla="routerLinkActive"
+    class="text-decoration-none"
+    >List</a
+  >
+
+  <div
+    class="d-flex align-items-center px-3 py-2 rounded-pill bg-light"
+    style="width: 300px; z-index: 1"
+  >
     <input
-      class="search-input"
       type="search"
       placeholder="Search Pokemons by name"
+      class="form-control border-0 bg-transparent ps-3"
+      style="box-shadow: none"
     />
   </div>
-</div>
+</nav>
