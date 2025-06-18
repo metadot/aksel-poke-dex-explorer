@@ -12,7 +12,7 @@
   <div class="row g-3">
     @for (pokemon of pokemons.value()?.results ?? []; track pokemon.name) {
     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-      <a [routerLink]="['/pokemon', pokemon.name]"
+      <a class="text-decoration-none" [routerLink]="['/pokemon', pokemon.name]"
         ><div class="card h-100 shadow-sm">
           <div class="card-body p-2 d-flex align-items-center">
             <h5 class="card-title text-center w-100 text-truncate m-0">
