@@ -2,9 +2,11 @@
   class="container text-center text-dark"
   style="font-family: Arial, sans-serif"
 >
-  @if (pokemon().isLoading()) {
+  @if (pokemonSpecies().isLoading() || previousSpecies().isLoading() ||
+  nextSpecies().isLoading() || pokemon().isLoading() ||
+  previousPokemon().isLoading() || nextPokemon().isLoading()) {
   <p class="py-5">Loading Pokémon data...</p>
-  } @else if (pokemon().error()) {
+  } @else if (pokemonSpecies().error()) {
   <div class="alert alert-warning mx-auto my-5" style="max-width: 350px">
     <img
       src="psyduck.jpg"
@@ -20,8 +22,8 @@
   <div>
     <div class="d-flex justify-content-center gap-3 mb-4">
       <div class="nav-slot">
-        @if (previousPokemon().value()) {
-        <a [routerLink]="['/pokemon', previousPokemon()?.value()?.name]">
+        @if (previousSpecies().value() && previousPokemon().value()) {
+        <a [routerLink]="['/pokemon', previousSpecies()?.value()?.name]">
           <img
             class="img-fluid"
             [src]="previousPokemon()?.value()?.sprites.front_default"
@@ -32,18 +34,19 @@
       </div>
 
       <div class="nav-slot">
-        <a [routerLink]="['/pokemon', pokemon()?.value()?.name]">
+        @if (pokemonSpecies().value() && pokemon().value()) {
+        <a [routerLink]="['/pokemon', pokemonSpecies()?.value()?.name]">
           <img
             class="img-fluid"
             [src]="pokemon()?.value()?.sprites.front_default"
             style="width: 50px; height: 50px; object-fit: contain"
-          />
-        </a>
+          /> </a
+        >}
       </div>
 
       <div class="nav-slot">
-        @if (nextPokemon().value()) {
-        <a [routerLink]="['/pokemon', nextPokemon()?.value()?.name]">
+        @if (nextSpecies().value() && nextPokemon().value()) {
+        <a [routerLink]="['/pokemon', nextSpecies()?.value()?.name]">
           <img
             class="img-fluid"
             [src]="nextPokemon()?.value()?.sprites.front_default"
@@ -56,7 +59,7 @@
 
     <h1 class="mb-1 fs-4">#{{ pokemon()?.value()?.id }}</h1>
     <h2 class="fw-normal mb-4 fs-5">
-      {{ pokemon()?.value()?.name | titlecase }}
+      {{ pokemonSpecies()?.value()?.name | titlecase }}
     </h2>
 
     <img

@@ -12,18 +12,35 @@ import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
 })
 export class PokemonDetailedViewComponent {
   readonly name = input.required<string>();
-  readonly currentPokemon: any = httpResource(
-    () => `https://pokeapi.co/api/v2/pokemon/${this.name()}`
-  );
+
   readonly currentSpecies: any = httpResource(
     () => `https://pokeapi.co/api/v2/pokemon-species/${this.name()}`
   );
+
+  readonly currentPokemon: any = httpResource(
+    () => `${this.currentSpecies.value()?.varieties[0].pokemon.url}`
+  );
+
   readonly id = computed(() => this.currentPokemon.value()?.id);
+
+  readonly previousSpecies: any = httpResource(() => {
+    const id = this.id();
+    return id && id > 1
+      ? `https://pokeapi.co/api/v2/pokemon-species/${id - 1}`
+      : undefined;
+  });
 
   readonly previousPokemon: any = httpResource(() => {
     const id = this.id();
     return id && id > 1
       ? `https://pokeapi.co/api/v2/pokemon/${id - 1}`
+      : undefined;
+  });
+
+  readonly nextSpecies: any = httpResource(() => {
+    const id = this.id();
+    return id && id < 1025
+      ? `https://pokeapi.co/api/v2/pokemon-species/${id + 1}`
       : undefined;
   });
 

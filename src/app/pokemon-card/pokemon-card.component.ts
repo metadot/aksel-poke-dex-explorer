@@ -10,7 +10,10 @@ import { RouterModule } from '@angular/router';
 })
 export class PokemonCardComponent {
   readonly pokemon = input.required<any>();
+  readonly pokemonSpecies = input.required<any>();
+  readonly previousSpecies = input<any>();
   readonly previousPokemon = input<any>();
+  readonly nextSpecies = input<any>();
   readonly nextPokemon = input<any>();
   readonly flavorText = input<string>();
   readonly latestCry = input<string>();
