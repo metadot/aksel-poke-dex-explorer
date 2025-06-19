@@ -14,13 +14,6 @@ export class HeaderComponent {
   searchTerm = '';
 
   constructor(private router: Router) {}
-
-  onSearch() {
-    const trimmed = this.searchTerm.trim().toLowerCase();
-    if (trimmed) {
-      this.router.navigate(['/pokemon', trimmed]);
-    }
-  }
   limitParam = limitParam;
   pageParam = pageParam;
 }
