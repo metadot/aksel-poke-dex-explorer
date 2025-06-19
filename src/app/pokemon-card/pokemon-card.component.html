@@ -23,7 +23,7 @@
     <div class="d-flex justify-content-center gap-3 mb-4">
       <div class="nav-slot">
         @if (previousSpecies().value() && previousPokemon().value()) {
-        <a [routerLink]="['/pokemon', previousSpecies()?.value()?.name]">
+        <a [routerLink]="['/pokemons', previousSpecies()?.value()?.name]">
           <img
             class="img-fluid"
             [src]="previousPokemon()?.value()?.sprites.front_default"
@@ -35,7 +35,7 @@
 
       <div class="nav-slot">
         @if (pokemonSpecies().value() && pokemon().value()) {
-        <a [routerLink]="['/pokemon', pokemonSpecies()?.value()?.name]">
+        <a [routerLink]="['/pokemons', pokemonSpecies()?.value()?.name]">
           <img
             class="img-fluid"
             [src]="pokemon()?.value()?.sprites.front_default"
@@ -46,7 +46,7 @@
 
       <div class="nav-slot">
         @if (nextSpecies().value() && nextPokemon().value()) {
-        <a [routerLink]="['/pokemon', nextSpecies()?.value()?.name]">
+        <a [routerLink]="['/pokemons', nextSpecies()?.value()?.name]">
           <img
             class="img-fluid"
             [src]="nextPokemon()?.value()?.sprites.front_default"
