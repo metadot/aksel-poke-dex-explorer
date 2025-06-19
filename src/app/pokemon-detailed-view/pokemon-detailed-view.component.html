@@ -1,5 +1,6 @@
 <app-pokemon-card
   [pokemon]="currentPokemon"
+  [basePokemon]="basePokemon"
   [pokemonSpecies]="currentSpecies"
   [previousSpecies]="previousSpecies"
   [previousPokemon]="previousPokemon"
@@ -10,4 +11,6 @@
   [legacyCry]="legacyCry()"
   [weight]="convertWeight(currentPokemon.value()?.weight)"
   [height]="convertHeight(currentPokemon.value()?.height)"
+  [selectedForm]="selectedVarietyName()"
+  (formSelected)="onFormSelected($event)"
 />

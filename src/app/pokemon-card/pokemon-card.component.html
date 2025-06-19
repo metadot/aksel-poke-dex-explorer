@@ -34,11 +34,11 @@
       </div>
 
       <div class="nav-slot">
-        @if (pokemonSpecies().value() && pokemon().value()) {
+        @if (pokemonSpecies().value() && basePokemon().value()) {
         <a [routerLink]="['/pokemons', pokemonSpecies()?.value()?.name]">
           <img
             class="img-fluid"
-            [src]="pokemon()?.value()?.sprites.front_default"
+            [src]="basePokemon()?.value()?.sprites.front_default"
             style="width: 50px; height: 50px; object-fit: contain"
           /> </a
         >}
@@ -57,10 +57,22 @@
       </div>
     </div>
 
-    <h1 class="mb-1 fs-4">#{{ pokemon()?.value()?.id }}</h1>
+    <h1 class="mb-1 fs-4">#{{ basePokemon()?.value()?.id }}</h1>
     <h2 class="fw-normal mb-4 fs-5">
       {{ pokemonSpecies()?.value()?.name | titlecase }}
     </h2>
+
+    @if (pokemonSpecies().value().varieties.length > 1) {<select
+      (change)="onFormChange($event)"
+    >
+      <option
+        *ngFor="let variety of pokemonSpecies().value().varieties"
+        [value]="variety.pokemon.name"
+        [selected]="variety.pokemon.name === selectedForm()"
+      >
+        {{ variety.pokemon.name }}
+      </option></select
+    >}
 
     <img
       class="img-fluid mx-auto d-block mb-4"

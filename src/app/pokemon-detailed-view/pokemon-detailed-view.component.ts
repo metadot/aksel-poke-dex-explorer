@@ -16,12 +16,24 @@ export class PokemonDetailedViewComponent {
   readonly currentSpecies: any = httpResource(
     () => `https://pokeapi.co/api/v2/pokemon-species/${this.name()}`
   );
+  private getFirstVarietyName(species: any): string | undefined {
+    return species?.varieties?.[0]?.pokemon?.name;
+  }
 
-  readonly currentPokemon: any = httpResource(
-    () => `${this.currentSpecies.value()?.varieties[0].pokemon.url}`
-  );
+  readonly basePokemon: any = httpResource(() => {
+    const species = this.currentSpecies.value();
+    const firstVarietyName = this.getFirstVarietyName(species);
+    return firstVarietyName
+      ? `https://pokeapi.co/api/v2/pokemon/${firstVarietyName}`
+      : undefined; // or null, to skip fetch until ready
+  });
 
-  readonly id = computed(() => this.currentPokemon.value()?.id);
+  readonly currentPokemon: any = httpResource(() => {
+    const name = this.selectedVarietyName();
+    return `https://pokeapi.co/api/v2/pokemon/${name}`;
+  });
+
+  readonly id = computed(() => this.basePokemon.value()?.id);
 
   readonly previousSpecies: any = httpResource(() => {
     const id = this.id();
@@ -81,5 +93,21 @@ export class PokemonDetailedViewComponent {
 
   convertWeight(weight: number) {
     return `${parseFloat((weight * 0.220462).toFixed(1))} lbs`;
+  }
+
+  selectedVarietyName = signal('');
+
+  onFormSelected(name: string) {
+    this.selectedVarietyName.set(name);
+  }
+
+  constructor() {
+    effect(() => {
+      const species = this.currentSpecies.value();
+      if (!species) return;
+      const firstVarietyName = this.getFirstVarietyName(species);
+      if (!firstVarietyName) return;
+      this.selectedVarietyName.set(firstVarietyName);
+    });
   }
 }
