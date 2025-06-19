@@ -8,7 +8,6 @@ import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
   selector: 'app-pokemon-data-view',
   imports: [CommonModule, RouterModule, PokemonCardComponent],
   templateUrl: './pokemon-detailed-view.component.html',
-  styleUrl: './pokemon-detailed-view.component.css',
 })
 export class PokemonDetailedViewComponent {
   readonly name = input.required<string>();

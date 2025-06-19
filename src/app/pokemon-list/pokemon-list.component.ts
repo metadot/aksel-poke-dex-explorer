@@ -14,7 +14,6 @@ import {
   selector: 'app-pokemon-list',
   imports: [CommonModule, MatPaginatorModule, RouterModule],
   templateUrl: './pokemon-list.component.html',
-  styleUrl: './pokemon-list.component.css',
 })
 export class PokemonListComponent {
   readonly page = input<number>(pageParam);
