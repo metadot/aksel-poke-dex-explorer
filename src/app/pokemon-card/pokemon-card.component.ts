@@ -25,11 +25,18 @@ export class PokemonCardComponent {
   readonly weight = input<string>();
   readonly height = input<string>();
 
-  selectedForm = input.required<string>();
+  selectedForm = input.required<string | undefined>();
   formSelected = output<string>();
 
   onFormChange(event: Event) {
     const value = (event.target as HTMLSelectElement).value;
     this.formSelected.emit(value);
+  }
+
+  constructor() {
+    console.log('Component constructor');
+    effect(() => {
+      console.log('Selected form changed:', this.selectedForm());
+    });
   }
 }

@@ -91,10 +91,10 @@ export class PokemonDetailedViewComponent {
   );
 
   readonly latestCry: Signal<string | undefined> = computed(
-    () => this.currentPokemon.value()?.cries.latest
+    () => this.currentPokemon.value()?.cries?.latest
   );
   readonly legacyCry: Signal<string | undefined> = computed(
-    () => this.currentPokemon.value()?.cries.legacy
+    () => this.currentPokemon.value()?.cries?.legacy
   );
 
   readonly latestFlavorText: Signal<{

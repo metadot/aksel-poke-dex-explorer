@@ -1,4 +1,3 @@
-@if (currentPokemon.value() && basePokemon.value() && currentSpecies.value()) {
 <app-pokemon-card
   [pokemon]="currentPokemon"
   [basePokemon]="basePokemon"
@@ -10,9 +9,8 @@
   [flavorText]="latestFlavorText()?.flavor_text"
   [latestCry]="latestCry()"
   [legacyCry]="legacyCry()"
-  [weight]="convertWeight(currentPokemon.value()!.weight)"
-  [height]="convertHeight(currentPokemon.value()!.height)"
+  [weight]="convertWeight(currentPokemon.value()?.weight ?? 0)"
+  [height]="convertHeight(currentPokemon.value()?.height ?? 0)"
   [selectedForm]="selectedVarietyName()"
   (formSelected)="onFormSelected($event)"
 />
-}
