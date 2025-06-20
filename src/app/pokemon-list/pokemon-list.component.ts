@@ -1,5 +1,5 @@
-import { httpResource } from '@angular/common/http';
-import { Component, computed, effect, input } from '@angular/core';
+import { httpResource, HttpResourceRef } from '@angular/common/http';
+import { Component, computed, effect, input, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router, RouterModule } from '@angular/router';
@@ -9,28 +9,29 @@ import {
   pageSizeOptions,
   pokemonNumber,
 } from '../_core/constants/pagination.constants';
+import { PokemonSpeciesList } from '../_core/models/pokemon';
 
 @Component({
   selector: 'app-pokemon-list',
   imports: [CommonModule, MatPaginatorModule, RouterModule],
   templateUrl: './pokemon-list.component.html',
-  styleUrl: './pokemon-list.component.css',
 })
 export class PokemonListComponent {
   readonly page = input<number>(pageParam);
   readonly limit = input<number>(limitParam);
-  pokemonNumber = pokemonNumber;
-  pageSizeOptions = pageSizeOptions;
+  pokemonNumber: number = pokemonNumber;
+  pageSizeOptions: number[] = pageSizeOptions;
 
-  readonly offset = computed(() => this.page() * this.limit());
+  readonly offset: Signal<number> = computed(() => this.page() * this.limit());
 
-  readonly pokemons = httpResource<any>(() => ({
-    url: `https://pokeapi.co/api/v2/pokemon-species`,
-    params: {
-      limit: this.limit(),
-      offset: this.offset(),
-    },
-  }));
+  readonly pokemons: HttpResourceRef<PokemonSpeciesList | undefined> =
+    httpResource(() => ({
+      url: `https://pokeapi.co/api/v2/pokemon-species`,
+      params: {
+        limit: this.limit(),
+        offset: this.offset(),
+      },
+    }));
 
   constructor(private router: Router) {
     effect(() => {

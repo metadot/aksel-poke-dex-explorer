@@ -5,9 +5,8 @@ import { limitParam, pageParam } from '../_core/constants/pagination.constants';
   selector: 'app-home',
   imports: [RouterModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  limitParam = limitParam;
-  pageParam = pageParam;
+  limitParam: number = limitParam;
+  pageParam: number = pageParam;
 }
