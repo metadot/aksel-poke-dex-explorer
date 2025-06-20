@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 export class HeaderComponent {
   searchTerm = '';
 
-  constructor(private router: Router) {}
-  limitParam = limitParam;
-  pageParam = pageParam;
+  constructor() {}
+  limitParam: number = limitParam;
+  pageParam: number = pageParam;
 }

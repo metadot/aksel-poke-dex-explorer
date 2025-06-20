@@ -1,4 +1,4 @@
-export const limitParam = 12;
-export const pageParam = 0;
-export const pokemonNumber = 1025;
-export const pageSizeOptions = [12, 24, 48, 72];
+export const limitParam: number = 12;
+export const pageParam: number = 0;
+export const pokemonNumber: number = 1025;
+export const pageSizeOptions: number[] = [12, 24, 48, 72];

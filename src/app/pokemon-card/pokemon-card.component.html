@@ -2,9 +2,9 @@
   class="container text-center text-dark"
   style="font-family: Arial, sans-serif"
 >
-  @if (pokemonSpecies().isLoading() || previousSpecies().isLoading() ||
-  nextSpecies().isLoading() || pokemon().isLoading() ||
-  previousPokemon().isLoading() || nextPokemon().isLoading()) {
+  @if (pokemonSpecies().isLoading() || previousSpecies()?.isLoading() ||
+  nextSpecies()?.isLoading() || pokemon().isLoading() ||
+  previousPokemon()?.isLoading() || nextPokemon()?.isLoading()) {
   <p class="py-5">Loading Pokémon data...</p>
   } @else if (pokemonSpecies().error()) {
   <div class="alert alert-warning mx-auto my-5" style="max-width: 350px">
@@ -22,11 +22,11 @@
   <div>
     <div class="d-flex justify-content-center gap-3 mb-4">
       <div class="nav-slot">
-        @if (previousSpecies().value() && previousPokemon().value()) {
+        @if (previousSpecies()?.value() && previousPokemon()?.value()) {
         <a [routerLink]="['/pokemons', previousSpecies()?.value()?.name]">
           <img
             class="img-fluid"
-            [src]="previousPokemon()?.value()?.sprites.front_default"
+            [src]="(previousPokemon()?.value()?.sprites)!.front_default"
             style="width: 50px; height: 50px; object-fit: contain"
           />
         </a>
@@ -35,21 +35,21 @@
 
       <div class="nav-slot">
         @if (pokemonSpecies().value() && basePokemon().value()) {
-        <a [routerLink]="['/pokemons', pokemonSpecies()?.value()?.name]">
+        <a [routerLink]="['/pokemons', pokemonSpecies().value()?.name]">
           <img
             class="img-fluid"
-            [src]="basePokemon()?.value()?.sprites.front_default"
+            [src]="basePokemon().value()?.sprites?.front_default"
             style="width: 50px; height: 50px; object-fit: contain"
           /> </a
         >}
       </div>
 
       <div class="nav-slot">
-        @if (nextSpecies().value() && nextPokemon().value()) {
+        @if (nextSpecies()?.value() && nextPokemon()?.value()) {
         <a [routerLink]="['/pokemons', nextSpecies()?.value()?.name]">
           <img
             class="img-fluid"
-            [src]="nextPokemon()?.value()?.sprites.front_default"
+            [src]="nextPokemon()?.value()?.sprites?.front_default"
             style="width: 50px; height: 50px; object-fit: contain"
           />
         </a>
@@ -57,15 +57,15 @@
       </div>
     </div>
 
-    <h1 class="mb-1 fs-4">#{{ basePokemon()?.value()?.id }}</h1>
+    <h1 class="mb-1 fs-4">#{{ basePokemon().value()?.id }}</h1>
     <h2 class="fw-normal mb-4 fs-5">
-      {{ pokemonSpecies()?.value()?.name | titlecase }}
+      {{ pokemonSpecies().value()?.name | titlecase }}
     </h2>
 
-    @if (pokemonSpecies().value().varieties.length > 1) {<select
+    @if (pokemonSpecies().value()!.varieties.length > 1) {<select
       (change)="onFormChange($event)"
     >
-      @for (variety of pokemonSpecies().value().varieties; track
+      @for (variety of pokemonSpecies().value()?.varieties; track
       variety.pokemon.name) {
       <option
         [value]="variety.pokemon.name"
@@ -79,13 +79,13 @@
     <img
       class="img-fluid mx-auto d-block mb-4"
       [src]="
-        pokemon()?.value()?.sprites.other['official-artwork'].front_default
+        (pokemon().value()?.sprites)!.other['official-artwork'].front_default
       "
       style="max-width: 280px"
     />
 
     <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
-      @for (type of pokemon()?.value()?.types; track type.type.name) {
+      @for (type of pokemon().value()?.types; track type.type.name) {
       <span class="badge bg-secondary text-capitalize px-3 py-1">{{
         type.type.name
       }}</span>
@@ -104,7 +104,7 @@
           Abilities
         </div>
         <ul class="list-group list-group-flush">
-          @for (ability of pokemon()?.value()?.abilities; track
+          @for (ability of pokemon().value()?.abilities; track
           ability.ability.name) {
           <li class="list-group-item text-capitalize">
             {{ ability.ability.name }}
