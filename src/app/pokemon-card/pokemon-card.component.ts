@@ -32,11 +32,4 @@ export class PokemonCardComponent {
     const value = (event.target as HTMLSelectElement).value;
     this.formSelected.emit(value);
   }
-
-  constructor() {
-    console.log('Component constructor');
-    effect(() => {
-      console.log('Selected form changed:', this.selectedForm());
-    });
-  }
 }
