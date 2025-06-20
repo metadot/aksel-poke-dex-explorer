@@ -8,17 +8,6 @@
   <p class="py-5 text-center text-muted fs-5" style="user-select: none">
     Loading Pokémon data...
   </p>
-  } @else if (pokemonSpecies().error()) {
-  <div class="alert alert-warning mx-auto my-5" style="max-width: 350px">
-    <img
-      src="psyduck.jpg"
-      class="rounded-circle mb-3 mx-auto d-block"
-      style="max-width: 120px"
-    />
-    <h2>Pokemon Not Found</h2>
-    <p>Sorry, we could not find that Pokémon.</p>
-    <p>Please, try again!</p>
-  </div>
   } @else {
 
   <div>
@@ -28,7 +17,7 @@
         <a [routerLink]="['/pokemons', previousSpecies()?.value()?.name]">
           <img
             class="img-fluid"
-            [src]="(previousPokemon()?.value()?.sprites)!.front_default"
+            [src]="previousPokemon()?.value()?.sprites?.front_default"
             style="width: 50px; height: 50px; object-fit: contain"
           />
         </a>
@@ -64,7 +53,7 @@
       {{ pokemonSpecies().value()?.name | titlecase }}
     </h2>
 
-    @if (pokemonSpecies().value()!.varieties.length > 1) {<select
+    @if (pokemonSpecies().value()?.varieties!.length > 1) {<select
       (change)="onFormChange($event)"
     >
       @for (variety of pokemonSpecies().value()?.varieties; track
@@ -81,7 +70,7 @@
     <img
       class="img-fluid mx-auto d-block mb-4"
       [src]="
-        (pokemon().value()?.sprites)!.other['official-artwork'].front_default
+        pokemon().value()?.sprites?.other?.['official-artwork']?.front_default
       "
       style="max-width: 280px"
     />

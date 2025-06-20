@@ -11,8 +11,6 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  searchTerm = '';
-
   constructor() {}
   limitParam: number = limitParam;
   pageParam: number = pageParam;

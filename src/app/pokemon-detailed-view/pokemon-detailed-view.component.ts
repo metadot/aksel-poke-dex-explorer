@@ -113,8 +113,6 @@ export class PokemonDetailedViewComponent {
     return englishEntries[englishEntries.length - 1] ?? null;
   });
 
-  readonly error = signal<boolean>(false);
-
   convertHeight(height: number): string {
     const inchesTotal = height * 3.93701;
     const feet = Math.floor(inchesTotal / 12);
