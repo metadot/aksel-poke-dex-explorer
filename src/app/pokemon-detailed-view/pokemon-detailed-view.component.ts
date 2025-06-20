@@ -1,8 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { httpResource } from '@angular/common/http';
-import { Component, computed, effect, input, signal } from '@angular/core';
+import { httpResource, HttpResourceRef } from '@angular/common/http';
+import {
+  Component,
+  computed,
+  effect,
+  input,
+  Signal,
+  signal,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
+import {
+  NamedAPIResource,
+  Pokemon,
+  PokemonSpecies,
+} from '../_core/models/pokemon';
 
 @Component({
   selector: 'app-pokemon-data-view',
@@ -12,91 +24,110 @@ import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
 export class PokemonDetailedViewComponent {
   readonly name = input.required<string>();
 
-  readonly currentSpecies: any = httpResource(
-    () => `https://pokeapi.co/api/v2/pokemon-species/${this.name()}`
-  );
-  private getFirstVarietyName(species: any): string | undefined {
+  readonly currentSpecies: HttpResourceRef<PokemonSpecies | undefined> =
+    httpResource(
+      () => `https://pokeapi.co/api/v2/pokemon-species/${this.name()}`
+    );
+  private getFirstVarietyName(
+    species: PokemonSpecies | undefined
+  ): string | undefined {
     return species?.varieties?.[0]?.pokemon?.name;
   }
 
-  readonly basePokemon: any = httpResource(() => {
-    const species = this.currentSpecies.value();
-    const firstVarietyName = this.getFirstVarietyName(species);
-    return firstVarietyName
-      ? `https://pokeapi.co/api/v2/pokemon/${firstVarietyName}`
-      : undefined; // or null, to skip fetch until ready
-  });
+  readonly basePokemon: HttpResourceRef<Pokemon | undefined> = httpResource(
+    () => {
+      const species = this.currentSpecies.value();
+      const firstVarietyName = this.getFirstVarietyName(species);
+      return firstVarietyName
+        ? `https://pokeapi.co/api/v2/pokemon/${firstVarietyName}`
+        : undefined;
+    }
+  );
 
-  readonly currentPokemon: any = httpResource(() => {
-    const name = this.selectedVarietyName();
-    return `https://pokeapi.co/api/v2/pokemon/${name}`;
-  });
+  readonly currentPokemon: HttpResourceRef<Pokemon | undefined> = httpResource(
+    () => {
+      const name = this.selectedVarietyName();
+      return `https://pokeapi.co/api/v2/pokemon/${name}`;
+    }
+  );
 
-  readonly id = computed(() => this.basePokemon.value()?.id);
+  readonly id: Signal<number | undefined> = computed(
+    () => this.basePokemon.value()?.id
+  );
 
-  readonly previousSpecies: any = httpResource(() => {
-    const id = this.id();
-    return id && id > 1
-      ? `https://pokeapi.co/api/v2/pokemon-species/${id - 1}`
-      : undefined;
-  });
+  readonly previousSpecies: HttpResourceRef<PokemonSpecies | undefined> =
+    httpResource(() => {
+      const id = this.id();
+      return id && id > 1
+        ? `https://pokeapi.co/api/v2/pokemon-species/${id - 1}`
+        : undefined;
+    });
 
-  readonly previousPokemon: any = httpResource(() => {
-    const id = this.id();
-    return id && id > 1
-      ? `https://pokeapi.co/api/v2/pokemon/${id - 1}`
-      : undefined;
-  });
+  readonly previousPokemon: HttpResourceRef<Pokemon | undefined> = httpResource(
+    () => {
+      const id = this.id();
+      return id && id > 1
+        ? `https://pokeapi.co/api/v2/pokemon/${id - 1}`
+        : undefined;
+    }
+  );
 
-  readonly nextSpecies: any = httpResource(() => {
-    const id = this.id();
-    return id && id < 1025
-      ? `https://pokeapi.co/api/v2/pokemon-species/${id + 1}`
-      : undefined;
-  });
+  readonly nextSpecies: HttpResourceRef<PokemonSpecies | undefined> =
+    httpResource(() => {
+      const id = this.id();
+      return id && id < 1025
+        ? `https://pokeapi.co/api/v2/pokemon-species/${id + 1}`
+        : undefined;
+    });
 
-  readonly nextPokemon: any = httpResource(() => {
-    const id = this.id();
-    return id && id < 1025
-      ? `https://pokeapi.co/api/v2/pokemon/${id + 1}`
-      : undefined;
-  });
+  readonly nextPokemon: HttpResourceRef<Pokemon | undefined> = httpResource(
+    () => {
+      const id = this.id();
+      return id && id < 1025
+        ? `https://pokeapi.co/api/v2/pokemon/${id + 1}`
+        : undefined;
+    }
+  );
 
-  readonly latestCry = computed(
+  readonly latestCry: Signal<string | undefined> = computed(
     () => this.currentPokemon.value()?.cries.latest
   );
-  readonly legacyCry = computed(
+  readonly legacyCry: Signal<string | undefined> = computed(
     () => this.currentPokemon.value()?.cries.legacy
   );
 
-  readonly latestFlavorText: any = computed(() => {
+  readonly latestFlavorText: Signal<{
+    flavor_text: string;
+    language: NamedAPIResource;
+    version: NamedAPIResource;
+  } | null> = computed(() => {
     const entries = this.currentSpecies.value()?.flavor_text_entries;
 
     if (!entries) return null;
 
     const englishEntries = entries.filter(
-      (entry: any) => entry.language.name === 'en'
+      (entry) => entry.language.name === 'en'
     );
 
     return englishEntries[englishEntries.length - 1] ?? null;
   });
 
-  readonly error = signal(false);
+  readonly error = signal<boolean>(false);
 
-  convertHeight(height: number) {
+  convertHeight(height: number): string {
     const inchesTotal = height * 3.93701;
     const feet = Math.floor(inchesTotal / 12);
     const inches = parseFloat((inchesTotal % 12).toFixed(0));
     return `${feet}' ${inches}"`;
   }
 
-  convertWeight(weight: number) {
+  convertWeight(weight: number): string {
     return `${parseFloat((weight * 0.220462).toFixed(1))} lbs`;
   }
 
-  selectedVarietyName = signal('');
+  selectedVarietyName = signal<string>('');
 
-  onFormSelected(name: string) {
+  onFormSelected(name: string): void {
     this.selectedVarietyName.set(name);
   }
 

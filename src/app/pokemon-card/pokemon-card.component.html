@@ -65,13 +65,15 @@
     @if (pokemonSpecies().value().varieties.length > 1) {<select
       (change)="onFormChange($event)"
     >
+      @for (variety of pokemonSpecies().value().varieties; track
+      variety.pokemon.name) {
       <option
-        *ngFor="let variety of pokemonSpecies().value().varieties"
         [value]="variety.pokemon.name"
         [selected]="variety.pokemon.name === selectedForm()"
       >
         {{ variety.pokemon.name }}
-      </option></select
+      </option>
+      }</select
     >}
 
     <img
@@ -125,13 +127,13 @@
       <audio
         controls
         [src]="latestCry()"
-        style="width: 200px; height: 30px"
+        style="width: 220px; height: 30px"
       ></audio>
       } @if (legacyCry()) {
       <audio
         controls
         [src]="legacyCry()"
-        style="width: 200px; height: 30px"
+        style="width: 220px; height: 30px"
       ></audio>
       }
     </div>
