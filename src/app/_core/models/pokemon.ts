@@ -298,6 +298,13 @@ export interface PokemonSpecies {
   }[];
 }
 
+export interface PokemonSpeciesList {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: NamedAPIResource[];
+}
+
 export interface NamedAPIResource {
   name: string;
   url: string;

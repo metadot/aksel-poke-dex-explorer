@@ -5,7 +5,9 @@
   @if (pokemonSpecies().isLoading() || previousSpecies()?.isLoading() ||
   nextSpecies()?.isLoading() || pokemon().isLoading() ||
   previousPokemon()?.isLoading() || nextPokemon()?.isLoading()) {
-  <p class="py-5">Loading Pokémon data...</p>
+  <p class="py-5 text-center text-muted fs-5" style="user-select: none">
+    Loading Pokémon data...
+  </p>
   } @else if (pokemonSpecies().error()) {
   <div class="alert alert-warning mx-auto my-5" style="max-width: 350px">
     <img
