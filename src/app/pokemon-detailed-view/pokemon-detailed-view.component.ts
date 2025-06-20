@@ -51,6 +51,7 @@ export class PokemonDetailedViewComponent {
     }
   );
 
+  // id needed to prevent app to fetch pokemons that don't exist (id < 1 or id > 1025)
   readonly id: Signal<number | undefined> = computed(
     () => this.basePokemon.value()?.id
   );
@@ -58,7 +59,7 @@ export class PokemonDetailedViewComponent {
   readonly previousSpecies: HttpResourceRef<PokemonSpecies | undefined> =
     httpResource(() => {
       const id = this.id();
-      return id && id > 1
+      return id && id > 1 // checking that id > 1 => id-1 >= 1 therefore the pokemon exists
         ? `https://pokeapi.co/api/v2/pokemon-species/${id - 1}`
         : undefined;
     });
@@ -75,7 +76,7 @@ export class PokemonDetailedViewComponent {
   readonly nextSpecies: HttpResourceRef<PokemonSpecies | undefined> =
     httpResource(() => {
       const id = this.id();
-      return id && id < 1025
+      return id && id < 1025 // same as previously but to verify that there is a next pokemon (id + 1 < 1025)
         ? `https://pokeapi.co/api/v2/pokemon-species/${id + 1}`
         : undefined;
     });
