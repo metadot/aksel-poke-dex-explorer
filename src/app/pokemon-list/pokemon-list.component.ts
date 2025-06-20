@@ -9,11 +9,7 @@ import {
   pageSizeOptions,
   pokemonNumber,
 } from '../_core/constants/pagination.constants';
-import {
-  NamedAPIResource,
-  PokemonSpecies,
-  PokemonSpeciesList,
-} from '../_core/models/pokemon';
+import { PokemonSpeciesList } from '../_core/models/pokemon';
 
 @Component({
   selector: 'app-pokemon-list',
