@@ -33,12 +33,7 @@ export class PokemonListComponent {
       },
     }));
 
-  constructor(private router: Router) {
-    effect(() => {
-      console.log(`This is the page ${this.page()}`);
-      console.log(`This is the number of items per page ${this.limit()}`);
-    });
-  }
+  constructor(private router: Router) {}
 
   onPageChanged(pageEvent: PageEvent) {
     this.router.navigate([], {

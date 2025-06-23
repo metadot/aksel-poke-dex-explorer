@@ -4,7 +4,7 @@ import { HeaderComponent } from './header.component';
 import { limitParam, pageParam } from '../_core/constants/pagination.constants';
 import { provideRouter } from '@angular/router';
 
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
