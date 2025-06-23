@@ -10,14 +10,14 @@
   ></mat-paginator>
 </div>
 
-@if (pokemons.isLoading()) {
+@if (allPokemons.isLoading()) {
 <p class="py-5 text-center text-muted fs-5" style="user-select: none">
   Loading Pokémon list...
 </p>
 } @else {
 <div class="container py-4">
   <div class="row g-3">
-    @for (pokemon of pokemons.value()?.results ?? []; track pokemon.name) {
+    @for (pokemon of pokemons().results ?? []; track pokemon.name) {
     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
       <a class="text-decoration-none" [routerLink]="['/pokemons', pokemon.name]"
         ><div class="card h-100 shadow-sm">

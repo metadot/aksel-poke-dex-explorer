@@ -24,14 +24,24 @@ export class PokemonListComponent {
 
   readonly offset: Signal<number> = computed(() => this.page() * this.limit());
 
-  readonly pokemons: HttpResourceRef<PokemonSpeciesList | undefined> =
+  readonly allPokemons: HttpResourceRef<PokemonSpeciesList | undefined> =
     httpResource(() => ({
       url: `https://pokeapi.co/api/v2/pokemon-species`,
       params: {
-        limit: this.limit(),
-        offset: this.offset(),
+        limit: pokemonNumber,
       },
     }));
+
+  readonly pokemons = computed(() => {
+    const all = this.allPokemons.value();
+    const offset = this.offset();
+    const limit = Number(this.limit());
+
+    return {
+      ...all,
+      results: all?.results.slice(offset, offset + limit),
+    };
+  });
 
   constructor(private router: Router) {}
 
