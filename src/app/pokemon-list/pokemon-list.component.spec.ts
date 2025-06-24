@@ -57,7 +57,7 @@ fdescribe('PokemonListComponent', () => {
     });
   });
 
-  it('should render paginated Pokemon cards from allPokemons', fakeAsync(() => {
+  it('should render paginated Pokémon cards from allPokemons', fakeAsync(() => {
     fixture.componentRef.setInput('page', 0);
     fixture.componentRef.setInput('limit', 12);
     tick();

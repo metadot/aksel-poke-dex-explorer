@@ -14,7 +14,18 @@
 <p class="py-5 text-center text-muted fs-5" style="user-select: none">
   Loading Pokémon list...
 </p>
-} @else {
+} @else { @if (!pokemons().length) {
+<div class="alert alert-warning mx-auto my-5" style="max-width: 350px">
+  <img
+    src="psyduck.jpg"
+    class="rounded-circle mb-3 mx-auto d-block"
+    style="max-width: 120px"
+  />
+  <h2>Pokémon Not Found</h2>
+  <p>Sorry, we could not find a Pokémon matching your search input.</p>
+  <p>Please, try again!</p>
+</div>
+}
 <div class="container py-4">
   <div class="row g-3">
     @for (pokemon of pokemons(); track pokemon.name) {
