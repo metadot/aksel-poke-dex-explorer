@@ -1,5 +1,11 @@
 import { httpResource, HttpResourceRef } from '@angular/common/http';
-import { Component, computed, effect, input, Signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  linkedSignal,
+  Signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router, RouterModule } from '@angular/router';
@@ -32,15 +38,23 @@ export class PokemonListComponent {
       },
     }));
 
+  readonly search = input<string | undefined>();
+
+  readonly filteredPokemons = linkedSignal(() => {
+    const list = this.allPokemons.value()?.results ?? [];
+    const q = this.search()?.trim().toLowerCase();
+
+    if (!q) return list;
+
+    return list.filter((p) => p.name.toLowerCase().includes(q));
+  });
+
   readonly pokemons = computed(() => {
-    const all = this.allPokemons.value();
+    const all = this.filteredPokemons();
     const offset = this.offset();
     const limit = Number(this.limit());
 
-    return {
-      ...all,
-      results: all?.results.slice(offset, offset + limit),
-    };
+    return all.slice(offset, offset + limit);
   });
 
   constructor(private router: Router) {}

@@ -20,4 +20,13 @@
     class="text-decoration-none"
     >List</a
   >
+  <input
+    type="search"
+    class="form-control w-auto"
+    placeholder="Search Pokémon by name"
+    [value]="searchText()"
+    (input)="onSearchInputChanged($any($event.target).value)"
+    autocomplete="off"
+    style="max-width: 300px"
+  />
 </nav>
