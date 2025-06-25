@@ -3,11 +3,9 @@ import { httpResource, HttpResourceRef } from '@angular/common/http';
 import {
   Component,
   computed,
-  effect,
   input,
   linkedSignal,
   Signal,
-  signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
@@ -16,7 +14,6 @@ import {
   Pokemon,
   PokemonSpecies,
 } from '../_core/models/pokemon';
-import { first } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon-data-view',
@@ -30,11 +27,6 @@ export class PokemonDetailedViewComponent {
     httpResource(
       () => `https://pokeapi.co/api/v2/pokemon-species/${this.name()}`
     );
-  private getFirstVarietyName(
-    species: PokemonSpecies | undefined
-  ): string | undefined {
-    return species?.varieties?.[0]?.pokemon?.name;
-  }
 
   readonly basePokemon: HttpResourceRef<Pokemon | undefined> = httpResource(
     () => {
@@ -115,6 +107,17 @@ export class PokemonDetailedViewComponent {
     return englishEntries[englishEntries.length - 1] ?? null;
   });
 
+  readonly selectedVarietyName = linkedSignal(() => {
+    const species = this.currentSpecies.value();
+    return this.getFirstVarietyName(species) ?? '';
+  });
+
+  private getFirstVarietyName(
+    species: PokemonSpecies | undefined
+  ): string | undefined {
+    return species?.varieties?.[0]?.pokemon?.name;
+  }
+
   convertHeight(height: number): string {
     const inchesTotal = height * 3.93701;
     const feet = Math.floor(inchesTotal / 12);
@@ -129,9 +132,4 @@ export class PokemonDetailedViewComponent {
   onFormSelected(name: string): void {
     this.selectedVarietyName.set(name);
   }
-
-  readonly selectedVarietyName = linkedSignal(() => {
-    const species = this.currentSpecies.value();
-    return this.getFirstVarietyName(species) ?? '';
-  });
 }
