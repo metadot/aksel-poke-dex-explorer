@@ -5,6 +5,7 @@ import {
   computed,
   effect,
   input,
+  linkedSignal,
   Signal,
   signal,
 } from '@angular/core';
@@ -15,6 +16,7 @@ import {
   Pokemon,
   PokemonSpecies,
 } from '../_core/models/pokemon';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon-data-view',
@@ -124,19 +126,12 @@ export class PokemonDetailedViewComponent {
     return `${parseFloat((weight * 0.220462).toFixed(1))} lbs`;
   }
 
-  selectedVarietyName = signal<string>('');
-
   onFormSelected(name: string): void {
     this.selectedVarietyName.set(name);
   }
 
-  constructor() {
-    effect(() => {
-      const species = this.currentSpecies.value();
-      if (!species) return;
-      const firstVarietyName = this.getFirstVarietyName(species);
-      if (!firstVarietyName) return;
-      this.selectedVarietyName.set(firstVarietyName);
-    });
-  }
+  readonly selectedVarietyName = linkedSignal(() => {
+    const species = this.currentSpecies.value();
+    return this.getFirstVarietyName(species) ?? '';
+  });
 }
