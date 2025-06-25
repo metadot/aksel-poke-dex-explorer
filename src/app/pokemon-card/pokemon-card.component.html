@@ -1,5 +1,5 @@
 <div
-  class="container text-center text-dark"
+  class="container text-center text-dark pb-3"
   style="font-family: Arial, sans-serif"
 >
   @if (pokemonSpecies().isLoading() || previousSpecies()?.isLoading() ||
@@ -65,6 +65,7 @@
     </h2>
 
     @if (pokemonSpecies().value()?.varieties!.length > 1) {<select
+      name="variety-select"
       (change)="onFormChange($event)"
     >
       @for (variety of pokemonSpecies().value()?.varieties; track
@@ -124,18 +125,18 @@
       <div>Weight: {{ weight() }}</div>
     </div>
 
-    <div class="d-flex justify-content-center gap-3 mt-3">
+    <div class="d-flex justify-content-center gap-3 mt-3 mb-5">
       @if (latestCry()) {
       <audio
         controls
         [src]="latestCry()"
-        style="width: 220px; height: 30px"
+        style="width: 300px; height: 30px"
       ></audio>
       } @if (legacyCry()) {
       <audio
         controls
         [src]="legacyCry()"
-        style="width: 220px; height: 30px"
+        style="width: 300px; height: 30px"
       ></audio>
       }
     </div>
