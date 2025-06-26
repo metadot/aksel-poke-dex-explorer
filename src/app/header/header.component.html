@@ -12,7 +12,7 @@
   >
   <a
     routerLink="/pokemons"
-    [queryParams]="{ limit: limitParam, page: pageParam }"
+    [queryParams]="{ limit: LIMIT_PAGE, page: DEFAULT_PAGE }"
     routerLinkActive="text-warning"
     [routerLinkActiveOptions]="{ exact: false }"
     [ngClass]="{ 'text-white': !listRla.isActive }"

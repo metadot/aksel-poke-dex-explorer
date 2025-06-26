@@ -2,22 +2,6 @@
   class="container text-center text-dark pb-3"
   style="font-family: Arial, sans-serif"
 >
-  @if (!pokemon()) {
-  <p class="py-5 text-center text-muted fs-5" style="user-select: none">
-    Loading Pokémon data...
-  </p>
-  } @else if (speciesError()) {
-  <div class="alert alert-warning mx-auto my-5" style="max-width: 350px">
-    <img
-      src="psyduck.jpg"
-      class="rounded-circle mb-3 mx-auto d-block"
-      style="max-width: 120px"
-    />
-    <h2>Pokémon Not Found</h2>
-    <p>Sorry, we could not find that Pokémon.</p>
-    <p>Please, try again!</p>
-  </div>
-  } @else {
   <div>
     <div class="d-flex justify-content-center gap-3 mb-4">
       <div class="nav-slot">
@@ -34,10 +18,10 @@
 
       <div class="nav-slot">
         @if (pokemonSpecies() && basePokemon()) {
-        <a [routerLink]="['/pokemons', pokemonSpecies()?.name]">
+        <a [routerLink]="['/pokemons', pokemonSpecies().name]">
           <img
             class="img-fluid"
-            [src]="basePokemon()?.sprites?.front_default"
+            [src]="basePokemon().sprites.front_default"
             style="width: 50px; height: 50px; object-fit: contain"
           /> </a
         >}
@@ -56,19 +40,18 @@
       </div>
     </div>
 
-    <h1 class="mb-1 fs-4">#{{ basePokemon()?.id }}</h1>
+    <h1 class="mb-1 fs-4">#{{ basePokemon().id }}</h1>
     <h2 class="fw-normal mb-4 fs-5">
-      {{ pokemonSpecies()?.name | titlecase }}
+      {{ pokemonSpecies().name | titlecase }}
     </h2>
 
-    @if (pokemonSpecies()?.varieties!.length > 1) {
+    @if (pokemonSpecies().varieties!.length > 1) {
     <select
       name="variety-select"
       [ngModel]="selectedForm()"
       (ngModelChange)="onFormChange($event)"
     >
-      @for (variety of pokemonSpecies()?.varieties; track variety.pokemon.name)
-      {
+      @for (variety of pokemonSpecies().varieties; track variety.pokemon.name) {
       <option [value]="variety.pokemon.name">
         {{ variety.pokemon.name }}
       </option>
@@ -78,14 +61,12 @@
 
     <img
       class="img-fluid mx-auto d-block mb-4"
-      [src]="
-        pokemon()?.sprites?.other?.['official-artwork']?.front_default
-      "
+      [src]="pokemon().sprites.other['official-artwork'].front_default"
       style="max-width: 280px"
     />
 
     <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
-      @for (type of pokemon()?.types; track type.type.name) {
+      @for (type of pokemon().types; track type.type.name) {
       <span class="badge bg-secondary text-capitalize px-3 py-1">{{
         type.type.name
       }}</span>
@@ -104,7 +85,7 @@
           Abilities
         </div>
         <ul class="list-group list-group-flush">
-          @for (ability of pokemon()?.abilities; track ability.ability.name) {
+          @for (ability of pokemon().abilities; track ability.ability.name) {
           <li class="list-group-item text-capitalize">
             {{ ability.ability.name }}
           </li>
@@ -137,5 +118,4 @@
       }
     </div>
   </div>
-  }
 </div>

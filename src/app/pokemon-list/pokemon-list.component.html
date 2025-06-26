@@ -4,7 +4,7 @@
     [length]="pokemons().length"
     [pageSize]="limit()"
     [showFirstLastButtons]="true"
-    [pageSizeOptions]="pageSizeOptions"
+    [pageSizeOptions]="PAGE_SIZE_OPTIONS"
     [pageIndex]="page()"
     (page)="onPageChanged($event)"
   ></mat-paginator>

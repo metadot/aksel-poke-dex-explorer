@@ -14,10 +14,16 @@ import {
   Pokemon,
   PokemonSpecies,
 } from '../_core/models/pokemon';
+import { PokemonErrorComponent } from '../pokemon-error/pokemon-error.component';
 
 @Component({
   selector: 'app-pokemon-data-view',
-  imports: [CommonModule, RouterModule, PokemonCardComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    PokemonCardComponent,
+    PokemonErrorComponent,
+  ],
   templateUrl: './pokemon-detailed-view.component.html',
 })
 export class PokemonDetailedViewComponent {

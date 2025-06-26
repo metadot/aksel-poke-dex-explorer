@@ -10,10 +10,10 @@ import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router, RouterModule } from '@angular/router';
 import {
-  limitParam,
-  pageParam,
-  pageSizeOptions,
-  pokemonNumber,
+  LIMIT_PAGE,
+  DEFAULT_PAGE,
+  PAGE_SIZE_OPTIONS,
+  POKEMON_NUMBER,
 } from '../_core/constants/pagination.constants';
 import { PokemonSpeciesList } from '../_core/models/pokemon';
 
@@ -23,10 +23,10 @@ import { PokemonSpeciesList } from '../_core/models/pokemon';
   templateUrl: './pokemon-list.component.html',
 })
 export class PokemonListComponent {
-  readonly page = input<number>(pageParam);
-  readonly limit = input<number>(limitParam);
-  pokemonNumber: number = pokemonNumber;
-  pageSizeOptions: number[] = pageSizeOptions;
+  readonly page = input<number>(DEFAULT_PAGE);
+  readonly limit = input<number>(LIMIT_PAGE);
+  pokemonNumber: number = POKEMON_NUMBER;
+  PAGE_SIZE_OPTIONS: number[] = PAGE_SIZE_OPTIONS;
 
   readonly offset: Signal<number> = computed(() => this.page() * this.limit());
 
