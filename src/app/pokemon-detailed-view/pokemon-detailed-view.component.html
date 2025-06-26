@@ -1,8 +1,14 @@
+@if (!currentPokemon.value()) {
+<p class="py-5 text-center text-muted fs-5" style="user-select: none">
+  Loading Pokémon data...
+</p>
+} @else if (currentSpecies.error()) {
+<app-pokemon-error />
+} @else {
 <app-pokemon-card
-  [pokemon]="currentPokemon.value()"
-  [basePokemon]="basePokemon.value()"
-  [pokemonSpecies]="currentSpecies.value()"
-  [speciesError]="currentSpecies.error()"
+  [pokemon]="currentPokemon.value()!"
+  [basePokemon]="basePokemon.value()!"
+  [pokemonSpecies]="currentSpecies.value()!"
   [previousSpecies]="previousSpecies.value()"
   [previousPokemon]="previousPokemon.value()"
   [nextSpecies]="nextSpecies.value()"
@@ -14,4 +20,4 @@
   [height]="convertHeight(currentPokemon.value()?.height ?? 0)"
   [selectedForm]="selectedVarietyName()"
   (formSelected)="onFormSelected($event)"
-/>
+/>}
