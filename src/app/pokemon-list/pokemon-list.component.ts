@@ -34,7 +34,7 @@ export class PokemonListComponent {
     httpResource(() => ({
       url: `https://pokeapi.co/api/v2/pokemon-species`,
       params: {
-        limit: pokemonNumber,
+        limit: this.pokemonNumber,
       },
     }));
 
