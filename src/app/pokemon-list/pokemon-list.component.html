@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-start mb-3">
   <mat-paginator
     #paginatorTop
-    [length]="pokemons().length"
+    [length]="POKEMON_NUMBER"
     [pageSize]="limit()"
     [showFirstLastButtons]="true"
     [pageSizeOptions]="PAGE_SIZE_OPTIONS"
@@ -15,16 +15,7 @@
   Loading Pokémon list...
 </p>
 } @else { @if (!pokemons().length) {
-<div class="alert alert-warning mx-auto my-5" style="max-width: 350px">
-  <img
-    src="psyduck.jpg"
-    class="rounded-circle mb-3 mx-auto d-block"
-    style="max-width: 120px"
-  />
-  <h2>Pokémon Not Found</h2>
-  <p>Sorry, we could not find a Pokémon matching your search input.</p>
-  <p>Please, try again!</p>
-</div>
+<app-pokemon-error />
 }
 
 <div class="container py-4">

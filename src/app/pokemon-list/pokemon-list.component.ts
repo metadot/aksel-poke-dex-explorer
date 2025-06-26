@@ -16,16 +16,22 @@ import {
   POKEMON_NUMBER,
 } from '../_core/constants/pagination.constants';
 import { PokemonSpeciesList } from '../_core/models/pokemon';
+import { PokemonErrorComponent } from '../pokemon-error/pokemon-error.component';
 
 @Component({
   selector: 'app-pokemon-list',
-  imports: [CommonModule, MatPaginatorModule, RouterModule],
+  imports: [
+    CommonModule,
+    MatPaginatorModule,
+    RouterModule,
+    PokemonErrorComponent,
+  ],
   templateUrl: './pokemon-list.component.html',
 })
 export class PokemonListComponent {
   readonly page = input<number>(DEFAULT_PAGE);
   readonly limit = input<number>(LIMIT_PAGE);
-  pokemonNumber: number = POKEMON_NUMBER;
+  POKEMON_NUMBER: number = POKEMON_NUMBER;
   PAGE_SIZE_OPTIONS: number[] = PAGE_SIZE_OPTIONS;
 
   readonly offset: Signal<number> = computed(() => this.page() * this.limit());
@@ -34,7 +40,7 @@ export class PokemonListComponent {
     httpResource(() => ({
       url: `https://pokeapi.co/api/v2/pokemon-species`,
       params: {
-        limit: this.pokemonNumber,
+        limit: this.POKEMON_NUMBER,
       },
     }));
 
