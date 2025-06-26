@@ -135,6 +135,26 @@ export class PokemonDetailedViewComponent {
     return `${parseFloat((weight * 0.220462).toFixed(1))} lbs`;
   }
 
+  isFetchingData(): boolean {
+    return (
+      this.currentPokemon.isLoading() ||
+      this.currentSpecies.isLoading() ||
+      this.basePokemon.isLoading() ||
+      this.previousSpecies.isLoading() ||
+      this.previousPokemon.isLoading() ||
+      this.nextSpecies.isLoading() ||
+      this.nextPokemon.isLoading()
+    );
+  }
+
+  hasError(): boolean {
+    return (
+      !!this.currentSpecies.error() ||
+      !!this.basePokemon.error() ||
+      !!this.currentPokemon.error()
+    );
+  }
+
   onFormSelected(name: string): void {
     this.selectedVarietyName.set(name);
   }

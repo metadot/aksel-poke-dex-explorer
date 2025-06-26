@@ -1,8 +1,9 @@
-@if (!currentPokemon.value()) {
+@if (isFetchingData()) {
 <p class="py-5 text-center text-muted fs-5" style="user-select: none">
   Loading Pokémon data...
 </p>
-} @else if (currentSpecies.error()) {
+} @else if (hasError()) {
+<!-- I checked and there is '.hasValue' but not '.hasError' on HttpResourceRef -->
 <app-pokemon-error />
 } @else {
 <app-pokemon-card
@@ -16,8 +17,8 @@
   [flavorText]="latestFlavorText()?.flavor_text"
   [latestCry]="latestCry()"
   [legacyCry]="legacyCry()"
-  [weight]="convertWeight(currentPokemon.value()?.weight ?? 0)"
-  [height]="convertHeight(currentPokemon.value()?.height ?? 0)"
+  [weight]="convertWeight(currentPokemon.value()!.weight)"
+  [height]="convertHeight(currentPokemon.value()!.height)"
   [selectedForm]="selectedVarietyName()"
   (formSelected)="onFormSelected($event)"
 />}
