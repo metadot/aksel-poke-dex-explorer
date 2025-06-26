@@ -6,9 +6,11 @@ import {
 } from '../_core/constants/pagination.constants';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
+  imports: [RouterModule, CommonModule, FormsModule],
   imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './header.component.html',
 })

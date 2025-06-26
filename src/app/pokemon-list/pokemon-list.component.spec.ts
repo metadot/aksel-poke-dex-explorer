@@ -7,7 +7,7 @@ import {
 
 import { PokemonListComponent } from './pokemon-list.component';
 import { provideRouter, Router } from '@angular/router';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { By } from '@angular/platform-browser';
 import { PokemonSpeciesList } from '../_core/models/pokemon';
 
