@@ -1,43 +1,39 @@
-import { httpResource } from '@angular/common/http';
-import { Component, computed, effect, input } from '@angular/core';
+import { httpResource, HttpResourceRef } from '@angular/common/http';
+import { Component, computed, effect, input, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router, RouterModule } from '@angular/router';
 import {
-  limitParam,
-  pageParam,
-  pageSizeOptions,
-  pokemonNumber,
+  LIMIT_PAGE,
+  DEFAULT_PAGE,
+  PAGE_SIZE_OPTIONS,
+  POKEMON_NUMBER,
 } from '../_core/constants/pagination.constants';
+import { PokemonSpeciesList } from '../_core/models/pokemon';
 
 @Component({
   selector: 'app-pokemon-list',
   imports: [CommonModule, MatPaginatorModule, RouterModule],
   templateUrl: './pokemon-list.component.html',
-  styleUrl: './pokemon-list.component.css',
 })
 export class PokemonListComponent {
-  readonly page = input<number>(pageParam);
-  readonly limit = input<number>(limitParam);
-  pokemonNumber = pokemonNumber;
-  pageSizeOptions = pageSizeOptions;
+  readonly page = input<number>(DEFAULT_PAGE);
+  readonly limit = input<number>(LIMIT_PAGE);
+  pokemonNumber: number = POKEMON_NUMBER;
+  PAGE_SIZE_OPTIONS: number[] = PAGE_SIZE_OPTIONS;
 
-  readonly offset = computed(() => this.page() * this.limit());
+  readonly offset: Signal<number> = computed(() => this.page() * this.limit());
 
-  readonly pokemons = httpResource<any>(() => ({
-    url: `https://pokeapi.co/api/v2/pokemon-species`,
-    params: {
-      limit: this.limit(),
-      offset: this.offset(),
-    },
-  }));
+  readonly pokemons: HttpResourceRef<PokemonSpeciesList | undefined> =
+    httpResource(() => ({
+      url: `https://pokeapi.co/api/v2/pokemon-species`,
+      params: {
+        limit: this.limit(),
+        offset: this.offset(),
+      },
+    }));
 
-  constructor(private router: Router) {
-    effect(() => {
-      console.log(`This is the page ${this.page()}`);
-      console.log(`This is the number of items per page ${this.limit()}`);
-    });
-  }
+  constructor(private router: Router) {}
 
   onPageChanged(pageEvent: PageEvent) {
     this.router.navigate([], {
