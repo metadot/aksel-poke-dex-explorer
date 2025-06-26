@@ -11,9 +11,9 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './pokemon-card.component.html',
 })
 export class PokemonCardComponent {
-  readonly pokemon = input.required<Pokemon | undefined>();
-  readonly basePokemon = input.required<Pokemon | undefined>();
-  readonly pokemonSpecies = input.required<PokemonSpecies | undefined>();
+  readonly pokemon = input<Pokemon | undefined>();
+  readonly basePokemon = input<Pokemon | undefined>();
+  readonly pokemonSpecies = input<PokemonSpecies | undefined>();
   readonly speciesError = input.required<unknown>();
   readonly previousSpecies = input<PokemonSpecies | undefined>();
   readonly previousPokemon = input<Pokemon | undefined>();
@@ -25,7 +25,7 @@ export class PokemonCardComponent {
   readonly weight = input<string>();
   readonly height = input<string>();
 
-  selectedForm = input.required<string | undefined>();
+  selectedForm = input<string | undefined>();
   formSelected = output<string>();
 
   onFormChange(value: string) {
