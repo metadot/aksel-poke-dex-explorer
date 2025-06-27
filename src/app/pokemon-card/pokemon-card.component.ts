@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Pokemon, PokemonSpecies } from '../_core/models/pokemon';
-import { HttpResourceRef } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 @Component({
