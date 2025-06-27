@@ -18,14 +18,4 @@ export class HeaderComponent {
   readonly DEFAULT_PAGE: number = DEFAULT_PAGE;
 
   constructor(private router: Router) {}
-
-  onSearchInputChanged(value: string) {
-    this.searchText.set(value);
-
-    this.router.navigate(['/pokemons'], {
-      queryParams: { search: value || null, page: 0, limit: 12 },
-      queryParamsHandling: 'merge',
-      replaceUrl: true,
-    });
-  }
 }

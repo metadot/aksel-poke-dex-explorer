@@ -4,6 +4,7 @@ import {
   computed,
   input,
   linkedSignal,
+  signal,
   Signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,12 +21,7 @@ import { PokemonErrorComponent } from '../pokemon-error/pokemon-error.component'
 
 @Component({
   selector: 'app-pokemon-list',
-  imports: [
-    CommonModule,
-    MatPaginatorModule,
-    RouterModule,
-    PokemonErrorComponent,
-  ],
+  imports: [CommonModule, MatPaginatorModule, RouterModule],
   templateUrl: './pokemon-list.component.html',
 })
 export class PokemonListComponent {
@@ -40,30 +36,27 @@ export class PokemonListComponent {
     httpResource(() => ({
       url: `https://pokeapi.co/api/v2/pokemon-species`,
       params: {
-        limit: this.POKEMON_NUMBER,
+        limit: this.limit(),
+        offset: this.offset(),
       },
     }));
 
-  readonly search = input<string | undefined>();
-
   readonly filteredPokemons = linkedSignal(() => {
     const list = this.allPokemons.value()?.results ?? [];
-    const q = this.search()?.trim().toLowerCase();
+    const q = this.searchText()?.trim().toLowerCase();
 
     if (!q) return list;
 
     return list.filter((p) => p.name.toLowerCase().includes(q));
   });
 
-  readonly pokemons = computed(() => {
-    const all = this.filteredPokemons();
-    const offset = this.offset();
-    const limit = Number(this.limit());
-
-    return all.slice(offset, offset + limit);
-  });
+  searchText = signal<string>('');
 
   constructor(private router: Router) {}
+
+  onSearchInputChanged(value: string) {
+    this.searchText.set(value);
+  }
 
   onPageChanged(pageEvent: PageEvent) {
     this.router.navigate([], {
