@@ -41,15 +41,6 @@ export class PokemonListComponent {
       },
     }));
 
-  readonly filteredPokemons = linkedSignal(() => {
-    const list = this.allPokemons.value()?.results ?? [];
-    const q = this.searchText()?.trim().toLowerCase();
-
-    if (!q) return list;
-
-    return list.filter((p) => p.name.toLowerCase().includes(q));
-  });
-
   searchText = signal<string>('');
 
   constructor(private router: Router) {}

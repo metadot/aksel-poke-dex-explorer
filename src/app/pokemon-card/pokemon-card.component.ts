@@ -3,10 +3,18 @@ import { Component, input, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Pokemon, PokemonSpecies } from '../_core/models/pokemon';
 import { FormsModule } from '@angular/forms';
+import { HighlightLegendaryPokemonDirective } from '../highlight-legendary-pokemon.directive';
+import { FormatPokemonNamePipe } from '../format-pokemon-name.pipe';
 
 @Component({
   selector: 'app-pokemon-card',
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [
+    RouterModule,
+    CommonModule,
+    FormsModule,
+    HighlightLegendaryPokemonDirective,
+    FormatPokemonNamePipe,
+  ],
   templateUrl: './pokemon-card.component.html',
 })
 export class PokemonCardComponent {

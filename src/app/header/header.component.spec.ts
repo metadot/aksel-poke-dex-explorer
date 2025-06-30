@@ -1,7 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
-import { limitParam, pageParam } from '../_core/constants/pagination.constants';
+import {
+  LIMIT_PAGE,
+  DEFAULT_PAGE,
+} from '../_core/constants/pagination.constants';
 import { provideRouter } from '@angular/router';
 
 describe('HeaderComponent', () => {
@@ -24,7 +27,7 @@ describe('HeaderComponent', () => {
   });
 
   it('should have limitParam and pageParam initialized correctly', () => {
-    expect(component.limitParam).toBe(limitParam);
-    expect(component.pageParam).toBe(pageParam);
+    expect(component.LIMIT_PAGE).toBe(LIMIT_PAGE);
+    expect(component.DEFAULT_PAGE).toBe(DEFAULT_PAGE);
   });
 });
