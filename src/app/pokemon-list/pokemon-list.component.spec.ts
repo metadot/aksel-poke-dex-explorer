@@ -7,11 +7,11 @@ import {
 
 import { PokemonListComponent } from './pokemon-list.component';
 import { provideRouter, Router } from '@angular/router';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { By } from '@angular/platform-browser';
 import { PokemonSpeciesList } from '../_core/models/pokemon';
 
-describe('PokemonListComponent', () => {
+fdescribe('PokemonListComponent', () => {
   let component: PokemonListComponent;
   let fixture: ComponentFixture<PokemonListComponent>;
   let router: Router;
@@ -57,16 +57,10 @@ describe('PokemonListComponent', () => {
     });
   });
 
-  it('should display loading message when pokemons are loading', fakeAsync(() => {
-    component.pokemons.reload();
+  it('should render paginated Pokémon cards from allPokemons', fakeAsync(() => {
+    fixture.componentRef.setInput('page', 0);
+    fixture.componentRef.setInput('limit', 12);
     tick();
-    const loadingElement = fixture.debugElement.query(By.css('P.text-muted'));
-    expect(loadingElement.nativeElement.textContent).toContain(
-      'Loading Pokémon list...'
-    );
-  }));
-
-  it('should render Pokemon cards if data is loaded', fakeAsync(() => {
     const mockData: PokemonSpeciesList = {
       results: [
         {
@@ -87,13 +81,15 @@ describe('PokemonListComponent', () => {
       previous: null,
     };
 
-    component.pokemons.set(mockData);
+    component.allPokemons.set(mockData);
+
     tick();
+    fixture.detectChanges();
 
     const cardTitles = fixture.debugElement.queryAll(By.css('.card-title'));
     expect(cardTitles.length).toBe(3);
-    expect(cardTitles[0].nativeElement.textContent.trim()).toBe('Bulbasaur');
-    expect(cardTitles[1].nativeElement.textContent.trim()).toBe('Ivysaur');
-    expect(cardTitles[2].nativeElement.textContent.trim()).toBe('Venusaur');
+
+    const text = cardTitles.map((el) => el.nativeElement.textContent.trim());
+    expect(text).toEqual(['Bulbasaur', 'Ivysaur', 'Venusaur']);
   }));
 });

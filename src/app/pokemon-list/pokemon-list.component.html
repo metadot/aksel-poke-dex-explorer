@@ -1,23 +1,30 @@
-<div class="d-flex justify-content-start mb-3">
-  <mat-paginator
-    #paginatorTop
-    [length]="pokemonNumber"
-    [pageSize]="limit()"
-    [showFirstLastButtons]="true"
-    [pageSizeOptions]="PAGE_SIZE_OPTIONS"
-    [pageIndex]="page()"
-    (page)="onPageChanged($event)"
-  ></mat-paginator>
+<div class="w-100 bg-light border-bottom py-3 px-3 mb-4">
+  <div class="container-fluid">
+    <div
+      class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3"
+    >
+      <mat-paginator
+        #paginatorTop
+        [length]="POKEMON_NUMBER"
+        [pageSize]="limit()"
+        [showFirstLastButtons]="true"
+        [pageSizeOptions]="PAGE_SIZE_OPTIONS"
+        [pageIndex]="page()"
+        (page)="onPageChanged($event)"
+      ></mat-paginator>
+    </div>
+  </div>
 </div>
 
-@if (pokemons.isLoading()) {
+@if (allPokemons.isLoading()) {
 <p class="py-5 text-center text-muted fs-5" style="user-select: none">
   Loading Pokémon list...
 </p>
-} @else {
+}
+
 <div class="container py-4">
   <div class="row g-3">
-    @for (pokemon of pokemons.value()?.results ?? []; track pokemon.name) {
+    @for (pokemon of allPokemons.value()?.results; track pokemon.name) {
     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
       <a class="text-decoration-none" [routerLink]="['/pokemons', pokemon.name]"
         ><div class="card h-100 shadow-sm">
@@ -29,7 +36,10 @@
         </div></a
       >
     </div>
+    } @empty {
+    <p class="py-5 text-center text-muted fs-5" style="user-select: none">
+      No results found...
+    </p>
     }
   </div>
 </div>
-}

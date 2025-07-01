@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import {
   LIMIT_PAGE,
@@ -13,7 +13,9 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  constructor() {}
+  searchText = signal('');
   readonly LIMIT_PAGE: number = LIMIT_PAGE;
   readonly DEFAULT_PAGE: number = DEFAULT_PAGE;
+
+  constructor(private router: Router) {}
 }

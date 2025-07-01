@@ -42,7 +42,7 @@
 
     <h1 class="mb-1 fs-4">#{{ basePokemon().id }}</h1>
     <h2 class="fw-normal mb-4 fs-5">
-      {{ pokemonSpecies().name | titlecase }}
+      {{ pokemonSpecies().name | formatPokemonName }}
     </h2>
 
     @if (pokemonSpecies().varieties!.length > 1) {
@@ -53,18 +53,17 @@
     >
       @for (variety of pokemonSpecies().varieties; track variety.pokemon.name) {
       <option [value]="variety.pokemon.name">
-        {{ variety.pokemon.name }}
+        {{ variety.pokemon.name | formatPokemonName }}
       </option>
       }
     </select>
     }
-
     <img
+      [appHighlightLegendaryPokemon]="pokemonSpecies().is_legendary"
       class="img-fluid mx-auto d-block mb-4"
       [src]="pokemon().sprites.other['official-artwork'].front_default"
       style="max-width: 280px"
     />
-
     <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
       @for (type of pokemon().types; track type.type.name) {
       <span class="badge bg-secondary text-capitalize px-3 py-1">{{
