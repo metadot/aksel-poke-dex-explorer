@@ -5,6 +5,7 @@ import { Pokemon, PokemonSpecies } from '../_core/models/pokemon';
 import { FormsModule } from '@angular/forms';
 import { HighlightLegendaryPokemonDirective } from '../highlight-legendary-pokemon.directive';
 import { FormatPokemonNamePipe } from '../format-pokemon-name.pipe';
+import { TruncateTextPipe } from '../truncate-text.pipe';
 
 @Component({
   selector: 'app-pokemon-card',
@@ -14,6 +15,7 @@ import { FormatPokemonNamePipe } from '../format-pokemon-name.pipe';
     FormsModule,
     HighlightLegendaryPokemonDirective,
     FormatPokemonNamePipe,
+    TruncateTextPipe,
   ],
   templateUrl: './pokemon-card.component.html',
 })
@@ -25,7 +27,7 @@ export class PokemonCardComponent {
   readonly previousPokemon = input<Pokemon | undefined>();
   readonly nextSpecies = input<PokemonSpecies | undefined>();
   readonly nextPokemon = input<Pokemon | undefined>();
-  readonly flavorText = input<string>();
+  readonly flavorText = input.required<string>();
   readonly latestCry = input<string>();
   readonly legacyCry = input<string>();
   readonly weight = input<string>();
