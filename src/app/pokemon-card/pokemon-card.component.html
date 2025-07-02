@@ -8,9 +8,9 @@
         @if (previousSpecies() && previousPokemon()) {
         <a [routerLink]="['/pokemons', previousSpecies()?.name]">
           <img
-            class="img-fluid"
+            class="img"
             [src]="previousPokemon()?.sprites?.front_default"
-            style="width: 50px; height: 50px; object-fit: contain"
+            style="width: 50px; height: 50px"
           />
         </a>
         }
@@ -20,9 +20,9 @@
         @if (pokemonSpecies() && basePokemon()) {
         <a [routerLink]="['/pokemons', pokemonSpecies().name]">
           <img
-            class="img-fluid"
+            class="img"
             [src]="basePokemon().sprites.front_default"
-            style="width: 50px; height: 50px; object-fit: contain"
+            style="width: 50px; height: 50px"
           /> </a
         >}
       </div>
@@ -31,9 +31,9 @@
         @if (nextSpecies() && nextPokemon()) {
         <a [routerLink]="['/pokemons', nextSpecies()?.name]">
           <img
-            class="img-fluid"
+            class="img"
             [src]="nextPokemon()?.sprites?.front_default"
-            style="width: 50px; height: 50px; object-fit: contain"
+            style="width: 50px; height: 50px"
           />
         </a>
         }
@@ -58,12 +58,14 @@
       }
     </select>
     }
-    <img
-      [appHighlightLegendaryPokemon]="pokemonSpecies().is_legendary"
-      class="img-fluid mx-auto d-block mb-4"
-      [src]="pokemon().sprites.other['official-artwork'].front_default"
-      style="max-width: 280px"
-    />
+    <div appHighlightOverflowingContent>
+      <img
+        [appHighlightLegendaryPokemon]="pokemonSpecies().is_legendary"
+        class="img-fluid mx-auto d-block mb-4"
+        [src]="pokemon().sprites.other['official-artwork'].front_default"
+        style="max-width: 280px"
+      />
+    </div>
     <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
       @for (type of pokemon().types; track type.type.name) {
       <span class="badge bg-secondary text-capitalize px-3 py-1">{{

@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HighlightLegendaryPokemonDirective } from '../highlight-legendary-pokemon.directive';
 import { FormatPokemonNamePipe } from '../format-pokemon-name.pipe';
 import { TruncateTextPipe } from '../truncate-text.pipe';
+import { HighlightOverflowingContentDirective } from '../highlight-overflowing-content.directive';
 
 @Component({
   selector: 'app-pokemon-card',
@@ -14,6 +15,7 @@ import { TruncateTextPipe } from '../truncate-text.pipe';
     CommonModule,
     FormsModule,
     HighlightLegendaryPokemonDirective,
+    HighlightOverflowingContentDirective,
     FormatPokemonNamePipe,
     TruncateTextPipe,
   ],
